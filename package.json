@@ -1,0 +1,6 @@
+{
+  "name": "expert-assurance",
+  "private": true,
+  "description": "Outil personnel hors ligne — expertise d'assurance (aucune dépendance npm : ce fichier fixe seulement le mode CommonJS pour src/calc_engine.js, le package.json du monorepo parent étant en type module).",
+  "type": "commonjs"
+}
