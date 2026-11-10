@@ -1,0 +1,28 @@
+{
+  "_table": "pieces",
+  "_source": "Synthèse des cas pratiques et livrables du dossier (Parties 2.2 et 5).",
+  "items": [
+    { "id": "pc-lettre-mission", "label": "Lettre de mission / ordre de mission", "categorie": "administratif", "quand": "À réception de la mission", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-police", "label": "Police d'assurance complète : conditions générales, particulières, avenants, intercalaires", "categorie": "police", "quand": "Avant la première réunion", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-questionnaire-risque", "label": "Questionnaire de déclaration du risque et déclarations successives", "categorie": "police", "quand": "Analyse des garanties", "statut": "V", "source_url": null, "date_verification": null, "note": "Base du contrôle L.113-8 / L.113-9" },
+    { "id": "pc-photos", "label": "Photographies horodatées des lieux et dommages", "categorie": "technique", "quand": "Dès la première visite", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-pv-scelles", "label": "Procès-verbal de pose des scellés et inventaire des prélèvements", "categorie": "technique", "quand": "Mesures conservatoires", "statut": "V", "source_url": null, "date_verification": null, "note": "Photos, étiquetage, numérotation, stockage sécurisé ; aucune ouverture hors présence des parties" },
+    { "id": "pc-convocations", "label": "Convocations écrites des parties (et accusés de réception)", "categorie": "administratif", "quand": "Avant tout démontage", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-rapport-sdis", "label": "Rapport d'intervention des secours (SDIS)", "categorie": "technique", "quand": "Chronologie", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-journal-alarme", "label": "Journaux d'alarme incendie / intrusion, télésurveillance", "categorie": "technique", "quand": "Chronologie", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-videosurveillance", "label": "Vidéosurveillance et données de supervision (BMS pour batteries)", "categorie": "technique", "quand": "Chronologie / origine-cause", "statut": "V", "source_url": null, "date_verification": null, "note": "Cas 3 du dossier" },
+    { "id": "pc-permis-feu", "label": "Permis de feu et plans de prévention récents", "categorie": "technique", "quand": "Origine-cause", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-contrats-maintenance", "label": "Contrats et rapports de maintenance des équipements en cause", "categorie": "technique", "quand": "Origine-cause / recours", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-verifications-reglementaires", "label": "Rapports de vérifications réglementaires (électricité, sprinkler, ATEX…)", "categorie": "technique", "quand": "Origine-cause / garanties", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-depot-plainte", "label": "Dépôt de plainte (vol, malveillance)", "categorie": "administratif", "quand": "Si acte volontaire suspecté", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-inventaire", "label": "Inventaire des biens endommagés, valeurs à neuf et d'achat", "categorie": "comptable", "quand": "Chiffrage", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-factures", "label": "Factures d'achat, d'entretien et devis de remplacement", "categorie": "comptable", "quand": "Chiffrage", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-devis-reconstruction", "label": "Devis de reconstruction / remise en état", "categorie": "comptable", "quand": "Chiffrage", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-comptabilite", "label": "Liasses fiscales et balances des 3 derniers exercices", "categorie": "comptable", "quand": "Perte d'exploitation", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-ca-mensuel", "label": "Chiffre d'affaires mensuel (36 mois) et carnet de commandes", "categorie": "comptable", "quand": "Perte d'exploitation", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-etat-pertes", "label": "État de pertes contradictoire", "categorie": "comptable", "quand": "Réserves / clôture", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-lettre-voiture", "label": "Lettre de voiture / CMR, bons de livraison, réserves émises", "categorie": "transport", "quand": "Sinistre transport", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-adr-documents", "label": "Documents ADR : document de transport, consignes écrites, certificat de formation du conducteur", "categorie": "transport", "quand": "Sinistre TMD", "statut": "V", "source_url": null, "date_verification": null, "note": null },
+    { "id": "pc-edd-icpe", "label": "Arrêtés préfectoraux, étude de dangers, rapports d'inspection ICPE", "categorie": "administratif", "quand": "Site classé / DD EHS", "statut": "V", "source_url": null, "date_verification": null, "note": "Cas 5 : ordre de lecture DD" }
+  ]
+}

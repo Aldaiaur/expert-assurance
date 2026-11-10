@@ -1,0 +1,14 @@
+{
+  "_table": "candidatures",
+  "_personnel": true,
+  "_source": "Vide au départ — rempli via l'app (localStorage + export/import). KPI : dossier Partie 7.1.",
+  "kpi": {
+    "contacts_par_semaine": 5,
+    "candidatures_par_semaine": 4,
+    "objectif_entretiens_informatifs": 10,
+    "objectif_candidatures_vague_1": 15,
+    "note": "Mi-nov.-déc. 2026 ; janv.-mars 2027 : 2 entretiens/semaine ; décision plan B si aucune offre fin mars 2027"
+  },
+  "etapes_pipeline": ["repérée", "contact", "candidature envoyée", "relance", "entretien 1", "entretien 2+", "offre", "refus", "abandonnée"],
+  "items": []
+}

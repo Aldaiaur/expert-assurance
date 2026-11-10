@@ -1,0 +1,176 @@
+{
+  "_table": "calculs",
+  "_source": "Formules : Code des assurances / contrat type / conventions (voir references) + dossier_reconversion.pdf (fiches réflexes, cas pratiques). Les vecteurs de test sont la source unique de vérité partagée par l'app, le classeur Excel et tests/.",
+  "items": [
+    {
+      "id": "calc-rp-capitaux",
+      "titre": "Règle proportionnelle de capitaux (L.121-5)",
+      "formule": "Indemnité = Dommage × (Capitaux déclarés / Valeur réelle au jour du sinistre), plafonnée au dommage",
+      "hypotheses": [
+        "Applicable sauf convention contraire (clause premier risque, clause de tolérance).",
+        "La valeur réelle s'apprécie au jour du sinistre.",
+        "Si capitaux déclarés ≥ valeur réelle : pas de réduction (coefficient plafonné à 1)."
+      ],
+      "base_juridique": ["ref-l121-5", "ref-l121-1"],
+      "parametres": [
+        { "nom": "dommage", "label": "Montant du dommage (€)", "type": "montant" },
+        { "nom": "declare", "label": "Capitaux déclarés (€)", "type": "montant" },
+        { "nom": "reel", "label": "Valeur réelle au jour du sinistre (€)", "type": "montant" }
+      ],
+      "vecteurs_test": [
+        { "nom": "acceptation-mission", "entrees": { "dommage": 200000, "declare": 800000, "reel": 1000000 }, "attendu": { "indemnite": 160000 } },
+        { "nom": "cas1-dossier-materiel", "entrees": { "dommage": 1000000, "declare": 2000000, "reel": 2500000 }, "attendu": { "indemnite": 800000 }, "note": "Cas 1 du dossier : RP de 80 % → 800 k€ sur le matériel, avant franchise et vétusté" },
+        { "nom": "sur-assurance", "entrees": { "dommage": 100000, "declare": 1200000, "reel": 1000000 }, "attendu": { "indemnite": 100000 }, "note": "Coefficient plafonné à 1 (principe indemnitaire L.121-1)" }
+      ],
+      "statut": "V", "source_url": null, "date_verification": "2026-11-10", "note": "Texte de L.121-5 contrôlé verbatim le 2026-11-10 (édition DILA)."
+    },
+    {
+      "id": "calc-rp-prime",
+      "titre": "Règle proportionnelle de prime (L.113-9)",
+      "formule": "Indemnité = Dommage × (Taux de prime payé / Taux de prime dû si le risque avait été exactement déclaré)",
+      "hypotheses": [
+        "Suppose une omission ou déclaration inexacte SANS mauvaise foi établie (sinon : nullité, L.113-8).",
+        "Constatée après sinistre. Avant sinistre : maintien avec surprime ou résiliation à 10 jours.",
+        "Le rapport s'applique aux taux de prime ; à assiette constante, le rapport des primes donne le même résultat.",
+        "La réduction ne peut pas réduire l'indemnité à néant (jurisprudence)."
+      ],
+      "base_juridique": ["ref-l113-9", "ref-l113-8"],
+      "parametres": [
+        { "nom": "dommage", "label": "Montant du dommage (€)", "type": "montant" },
+        { "nom": "prime_payee", "label": "Prime (ou taux) payée", "type": "montant" },
+        { "nom": "prime_due", "label": "Prime (ou taux) qui aurait été due", "type": "montant" }
+      ],
+      "vecteurs_test": [
+        { "nom": "exemple-2-tiers", "entrees": { "dommage": 300000, "prime_payee": 10000, "prime_due": 15000 }, "attendu": { "indemnite": 200000 }, "note": "Exemple pédagogique : prime payée = 2/3 de la prime due → indemnité réduite d'1/3" }
+      ],
+      "statut": "V", "source_url": null, "date_verification": "2026-11-10", "note": "Texte de L.113-9 contrôlé verbatim le 2026-11-10 (édition DILA)."
+    },
+    {
+      "id": "calc-chaine-indemnite",
+      "titre": "Chaîne d'indemnisation : valeur à neuf → vétusté → règle proportionnelle → franchise → plafond → indemnité différée",
+      "formule": "Vétusté = Dommage(VàN) × taux de vétusté ; Dommage(VD) = Dommage(VàN) − Vétusté ; coeff RP = min(1, déclaré/réel) ; Immédiat = min(Dommage(VD) × coeff RP − franchise ; plafond éventuel) ; Différé (rachat de vétusté) = min(Vétusté ; taux max de rachat × Dommage(VD)) × coeff RP",
+      "hypotheses": [
+        "Hypothèse d'ordre : la franchise est déduite après la règle proportionnelle, sur l'indemnité immédiate. L'ORDRE RÉEL DÉPEND DE LA POLICE — le dossier note explicitement : « À vérifier : l'ordre d'application de la franchise prévu par la police ».",
+        "Le rachat de vétusté (indemnité différée) est versé sur justification de la reconstruction/remplacement, dans la limite d'un pourcentage de la valeur vétusté déduite (ici 25 % par défaut, clause type « valeur à neuf dans la limite de 125 % de la VD »).",
+        "La règle proportionnelle s'applique aussi à la part différée.",
+        "La franchise ne s'applique qu'une fois, sur la part immédiate."
+      ],
+      "base_juridique": ["ref-l121-5", "ref-l121-1", "ref-l121-17"],
+      "parametres": [
+        { "nom": "dommage_van", "label": "Dommage en valeur à neuf (€)", "type": "montant" },
+        { "nom": "taux_vetuste", "label": "Taux de vétusté", "type": "taux" },
+        { "nom": "declare", "label": "Capitaux déclarés (€)", "type": "montant" },
+        { "nom": "reel", "label": "Valeur à neuf réelle (€)", "type": "montant" },
+        { "nom": "franchise", "label": "Franchise (€)", "type": "montant" },
+        { "nom": "plafond", "label": "Plafond / LCI (€, optionnel)", "type": "montant", "optionnel": true },
+        { "nom": "taux_rachat_max", "label": "Rachat de vétusté plafonné à (en % de la VD)", "type": "taux", "defaut": 0.25 }
+      ],
+      "vecteurs_test": [
+        { "nom": "acceptation-mission-batiment",
+          "entrees": { "dommage_van": 900000, "taux_vetuste": 0.20, "declare": 3000000, "reel": 3600000, "franchise": 10000, "plafond": null, "taux_rachat_max": 0.25 },
+          "attendu": { "immediat": 590000, "differe": 150000 },
+          "note": "Exercice de chiffrage du dossier (Partie 5) : RP 3/3,6 = 83,33 % ; 720 k€ × 83,33 % − 10 k€ = 590 k€ ; différé : vétusté 180 k€ (= plafond 25 % × 720 k€) × 83,33 % = 150 k€" }
+      ],
+      "statut": "V", "source_url": null, "date_verification": "2026-11-10",
+      "note": "Bases L.121-5/L.121-1 vérifiées. Le plafonnement du rachat de vétusté à 25 % est une clause de marché (fictif/contractuel, pas une règle légale)."
+    },
+    {
+      "id": "calc-pe",
+      "titre": "Perte d'exploitation",
+      "formule": "Marge brute assurée = CA − charges variables ; Taux de marge brute = marge brute / CA ; Perte = Taux de marge brute × Baisse de CA + Frais supplémentaires retenus − Économies de charges",
+      "hypotheses": [
+        "La marge brute ASSURÉE (CA − charges variables) diffère de la marge comptable — confusion éliminatoire en entretien.",
+        "Les frais supplémentaires ne sont indemnisables que s'ils ont évité une perte de marge au moins équivalente (sinon écrêtés).",
+        "Période d'indemnisation et franchise-carence selon la police (non modélisées ici).",
+        "La baisse de CA s'apprécie par rapport au CA de référence attendu sans sinistre."
+      ],
+      "base_juridique": ["ref-l121-1"],
+      "parametres": [
+        { "nom": "baisse_ca", "label": "Baisse de chiffre d'affaires (€)", "type": "montant" },
+        { "nom": "taux_marge", "label": "Taux de marge brute assurée", "type": "taux" },
+        { "nom": "frais_supp", "label": "Frais supplémentaires engagés (€)", "type": "montant", "defaut": 0 },
+        { "nom": "perte_evitee", "label": "Perte de marge évitée par ces frais (€)", "type": "montant", "defaut": 0 },
+        { "nom": "economies", "label": "Économies de charges (€)", "type": "montant", "defaut": 0 }
+      ],
+      "vecteurs_test": [
+        { "nom": "cas1-dossier-sans-frais", "entrees": { "baisse_ca": 1200000, "taux_marge": 0.60, "frais_supp": 0, "perte_evitee": 0, "economies": 30000 }, "attendu": { "perte": 690000 }, "note": "Cas 1 : 60 % × 1,2 M€ − 30 k€ = 690 k€" },
+        { "nom": "cas1-dossier-avec-frais", "entrees": { "baisse_ca": 1200000, "taux_marge": 0.60, "frais_supp": 90000, "perte_evitee": 90000, "economies": 30000 }, "attendu": { "perte": 780000 }, "note": "Les 90 k€ de sous-traitance d'urgence sont indemnisables s'ils ont évité une perte au moins équivalente" },
+        { "nom": "frais-ecretes", "entrees": { "baisse_ca": 1000000, "taux_marge": 0.50, "frais_supp": 120000, "perte_evitee": 80000, "economies": 0 }, "attendu": { "perte": 580000 }, "note": "Frais supplémentaires écrêtés à la perte évitée (80 k€)" }
+      ],
+      "statut": "V", "source_url": null, "date_verification": null,
+      "note": "Formule du dossier (fiche réflexe expert + Partie 3). Le scénario (a) du rapport_recherche.md (PE attendue 1 379 927 €) n'est pas reproductible : fichier non fourni — voir a_verifier."
+    },
+    {
+      "id": "calc-plafonds-transport",
+      "titre": "Plafonds d'indemnisation transport (contrat type général, CMR, Montréal, La Haye-Visby)",
+      "formule": "Contrat type général : envois < 3 t → min(33 € × kg ; 1 000 € × colis) ; envois ≥ 3 t → min(20 € × kg ; 3 200 € × tonnage). CMR : 8,33 DTS × kg. Montréal : 26 DTS × kg (22 DTS avant le 28/12/2024). La Haye-Visby : max(666,67 DTS × colis ; 2 DTS × kg). Conversion : montant DTS × cours du DTS saisi à la main",
+      "hypotheses": [
+        "Le cours du DTS (droit de tirage spécial, FMI) est SAISI MANUELLEMENT — aucune récupération réseau. Source : FMI ou Banque de France du jour.",
+        "Plafonds hors dol / faute inexcusable (CMR art. 29 ; contrat type art. 22.1) et hors déclaration de valeur ou intérêt spécial à la livraison.",
+        "Montréal : la limite applicable est celle en vigueur à la date de l'événement (26 DTS/kg depuis le 28/12/2024).",
+        "La Haye-Visby : le décompte des colis d'un conteneur suit l'énumération au connaissement (art. IV(5)(c))."
+      ],
+      "base_juridique": ["ref-contrat-type-general", "ref-cmr", "ref-montreal", "ref-hague-visby"],
+      "parametres": [
+        { "nom": "regime", "label": "Régime", "type": "choix", "options": ["ctg_moins_3t", "ctg_3t_et_plus", "cmr", "montreal", "hague_visby"] },
+        { "nom": "poids_kg", "label": "Poids brut concerné (kg)", "type": "montant" },
+        { "nom": "nb_colis", "label": "Nombre de colis", "type": "entier", "defaut": 1 },
+        { "nom": "taux_montreal", "label": "Taux Montréal (DTS/kg)", "type": "montant", "defaut": 26 },
+        { "nom": "cours_dts", "label": "Cours du DTS (€/DTS, saisi à la main)", "type": "montant", "optionnel": true }
+      ],
+      "vecteurs_test": [
+        { "nom": "acceptation-mission-cmr", "entrees": { "regime": "cmr", "poids_kg": 8000, "nb_colis": 1 }, "attendu": { "plafond_dts": 66640 }, "note": "8 000 kg × 8,33 = 66 640 DTS" },
+        { "nom": "ctg-petit-envoi", "entrees": { "regime": "ctg_moins_3t", "poids_kg": 400, "nb_colis": 10 }, "attendu": { "plafond_eur": 10000 }, "note": "min(33 × 400 = 13 200 ; 1 000 × 10 = 10 000) = 10 000 €" },
+        { "nom": "ctg-gros-envoi", "entrees": { "regime": "ctg_3t_et_plus", "poids_kg": 8000, "nb_colis": 1 }, "attendu": { "plafond_eur": 25600 }, "note": "min(20 × 8 000 = 160 000 ; 3 200 × 8 = 25 600) = 25 600 €" },
+        { "nom": "hague-visby-max", "entrees": { "regime": "hague_visby", "poids_kg": 5000, "nb_colis": 4 }, "attendu": { "plafond_dts": 10000 }, "note": "max(666,67 × 4 = 2 666,68 ; 2 × 5 000 = 10 000) = 10 000 DTS" },
+        { "nom": "montreal-actuel", "entrees": { "regime": "montreal", "poids_kg": 1000, "nb_colis": 1, "taux_montreal": 26 }, "attendu": { "plafond_dts": 26000 } }
+      ],
+      "statut": "V", "source_url": null, "date_verification": "2026-11-10",
+      "note": "Contrat type et limites Montréal/La Haye-Visby vérifiés le 2026-11-10 (voir references). CMR 8,33 : dossier + sources concordantes."
+    },
+    {
+      "id": "calc-echeancier",
+      "titre": "Échéancier des délais (assurance et transport)",
+      "formule": "À partir des dates saisies (sinistre, déclaration, livraison, accord d'indemnisation), calcule les échéances : déclaration (L.113-2), réponse assureur (L.121-18), CatNat (L.125-2), protestation (L.133-3), réserves CMR (art. 30), prescriptions (L.114-1, L.133-6, CMR art. 32), présomption de perte (contrat type art. 21)",
+      "hypotheses": [
+        "« Jours ouvrés » (L.113-2) : lundi-vendredi hors jours fériés français saisis à la main (aucune table de fériés embarquée ne fait foi).",
+        "L.133-3 : 3 jours NON COMPRIS les jours fériés, à compter du lendemain de la réception.",
+        "L.121-18 : délais applicables sauf contrats exclus par décret en Conseil d'État (décret à surveiller).",
+        "CMR art. 30/32 : délais usuels affichés mais base NV (texte à contrôler) — badge affiché.",
+        "Les délais conventionnels plus favorables priment (L.125-2 in fine)."
+      ],
+      "base_juridique": ["ref-l113-2", "ref-l121-18", "ref-l125-2", "ref-l133-3-ccom", "ref-l133-6-ccom", "ref-l114-1", "ref-cmr", "ref-contrat-type-general"],
+      "parametres": [
+        { "nom": "date_sinistre", "label": "Date du sinistre / de sa connaissance", "type": "date" },
+        { "nom": "date_declaration", "label": "Date de déclaration à l'assureur", "type": "date", "optionnel": true },
+        { "nom": "date_livraison", "label": "Date de livraison (transport)", "type": "date", "optionnel": true },
+        { "nom": "date_accord", "label": "Date d'accord sur la proposition", "type": "date", "optionnel": true },
+        { "nom": "contexte", "label": "Contexte", "type": "choix_multiple", "options": ["assurance_dommages", "vol", "catnat", "transport_interieur", "transport_cmr", "expert_designe"] }
+      ],
+      "delais": [
+        { "id": "d-declaration", "label": "Déclaration du sinistre", "base": "ref-l113-2", "regle": "5 jours ouvrés (2 jours ouvrés en cas de vol, 24 h mortalité bétail) — minimum légal, le contrat peut prévoir plus", "depuis": "date_sinistre" },
+        { "id": "d-aggravation", "label": "Déclaration de circonstances nouvelles", "base": "ref-l113-2", "regle": "15 jours à partir de la connaissance", "depuis": "date_sinistre" },
+        { "id": "d-reponse-sans-expert", "label": "Proposition ou refus motivé de l'assureur (sans expert)", "base": "ref-l121-18", "regle": "2 mois depuis la déclaration", "depuis": "date_declaration" },
+        { "id": "d-reponse-avec-expert", "label": "Proposition, refus motivé ou acompte (expert désigné)", "base": "ref-l121-18", "regle": "6 mois depuis la déclaration", "depuis": "date_declaration" },
+        { "id": "d-paiement", "label": "Versement (ou missionnement de l'entreprise) après accord", "base": "ref-l121-18", "regle": "21 jours pour verser / 1 mois pour missionner, sinon intérêt légal", "depuis": "date_accord" },
+        { "id": "d-catnat-info", "label": "CatNat : information de l'assuré et expertise", "base": "ref-l125-2", "regle": "1 mois depuis déclaration ou publication de l'arrêté", "depuis": "date_declaration" },
+        { "id": "d-protestation", "label": "Protestation motivée au voiturier (France)", "base": "ref-l133-3-ccom", "regle": "3 jours, jours fériés non compris, après la réception", "depuis": "date_livraison" },
+        { "id": "d-cmr-apparent", "label": "CMR : réserves avaries apparentes", "base": "ref-cmr", "regle": "au plus tard à la livraison", "depuis": "date_livraison" },
+        { "id": "d-cmr-non-apparent", "label": "CMR : réserves avaries non apparentes", "base": "ref-cmr", "regle": "7 jours (dimanches et fériés non compris)", "depuis": "date_livraison" },
+        { "id": "d-cmr-retard", "label": "CMR : réserve écrite pour retard", "base": "ref-cmr", "regle": "21 jours après la mise à disposition", "depuis": "date_livraison" },
+        { "id": "d-presomption-perte", "label": "Présomption de perte (contrat type)", "base": "ref-contrat-type-general", "regle": "30 jours après l'expiration du délai de livraison", "depuis": "date_livraison" },
+        { "id": "d-prescription-transport", "label": "Prescription des actions transport (France)", "base": "ref-l133-6-ccom", "regle": "1 an depuis la livraison (ou la date prévue en cas de perte totale)", "depuis": "date_livraison" },
+        { "id": "d-cmr-prescription", "label": "CMR : prescription", "base": "ref-cmr", "regle": "1 an (3 ans en cas de dol)", "depuis": "date_livraison" },
+        { "id": "d-prescription-assurance", "label": "Prescription biennale assurance", "base": "ref-l114-1", "regle": "2 ans depuis l'événement (5 ans sécheresse-réhydratation CatNat)", "depuis": "date_sinistre" }
+      ],
+      "parametres_vides": true,
+      "vecteurs_test": [
+        { "nom": "delais-statiques", "entrees": { "date_sinistre": "2027-01-04", "date_declaration": "2027-01-05", "date_livraison": "2027-01-04", "date_accord": "2027-06-01", "contexte": ["assurance_dommages", "transport_interieur"] },
+          "attendu": { "d-prescription-assurance": "2029-01-04", "d-prescription-transport": "2028-01-04", "d-reponse-sans-expert": "2027-03-05", "d-paiement": "2027-06-22" },
+          "note": "Contrôles simples : +2 ans, +1 an, +2 mois, +21 jours" }
+      ],
+      "statut": "V", "source_url": null, "date_verification": "2026-11-10",
+      "note": "Bases françaises vérifiées verbatim le 2026-11-10. Lignes CMR : NV (voir ref-cmr)."
+    }
+  ]
+}

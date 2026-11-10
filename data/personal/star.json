@@ -1,0 +1,15 @@
+{
+  "_table": "star",
+  "_personnel": true,
+  "_source": "Liste des 8 récits : dossier Partie 4.3 (« Récits STAR [chiffres à compléter] »). Contenus S/T/A/R à rédiger par toi dans l'app — jamais écrasés par build.py. Employeur actuel anonymisé dans ce fichier versionné : rétablis les noms dans l'app (tes données restent locales).",
+  "items": [
+    { "id": "star-lithium", "titre": "Lithium (arbre de décision UN 3480/3481/3090/3091)", "situation": "", "tache": "", "action": "", "resultat": "", "chiffres": "[à compléter — et valider l'arbre de décision]", "tags": ["TMD", "lithium"], "statut": "NV", "source_url": null, "date_verification": null, "note": "Arbre UN à valider (dossier)" },
+    { "id": "star-outil-audit", "titre": "Outil interne d'audit TMD (checklists automatisées)", "situation": "", "tache": "", "action": "", "resultat": "", "chiffres": "[sites et volumes : à compléter]", "tags": ["audit", "numérique"], "statut": "NV", "source_url": null, "date_verification": null, "note": null },
+    { "id": "star-revue-incident", "titre": "Revue d'incident", "situation": "", "tache": "", "action": "", "resultat": "", "chiffres": "[à compléter]", "tags": ["incident", "causalité"], "statut": "NV", "source_url": null, "date_verification": null, "note": null },
+    { "id": "star-dechets-eiffage", "titre": "Traçabilité des déchets chez Eiffage", "situation": "", "tache": "", "action": "", "resultat": "", "chiffres": "[à compléter]", "tags": ["déchets", "RSE"], "statut": "NV", "source_url": null, "date_verification": null, "note": null },
+    { "id": "star-espagne", "titre": "Mission en Espagne (transfert de pratiques)", "situation": "", "tache": "", "action": "", "resultat": "", "chiffres": "[à compléter]", "tags": ["international"], "statut": "NV", "source_url": null, "date_verification": null, "note": null },
+    { "id": "star-formation", "titre": "Formation des préventeurs", "situation": "", "tache": "", "action": "", "resultat": "", "chiffres": "[à compléter]", "tags": ["pédagogie"], "statut": "NV", "source_url": null, "date_verification": null, "note": null },
+    { "id": "star-chef-groupe", "titre": "Chef de groupe et OPEX", "situation": "", "tache": "", "action": "", "resultat": "", "chiffres": "[à compléter]", "tags": ["leadership"], "statut": "NV", "source_url": null, "date_verification": null, "note": "Posture : calme et responsabilité, pas de rigidité ni d'anecdotes guerrières" },
+    { "id": "star-nrbc", "titre": "NRBC (instruction des risques)", "situation": "", "tache": "", "action": "", "resultat": "", "chiffres": "[à compléter]", "tags": ["NRBC", "risques"], "statut": "NV", "source_url": null, "date_verification": null, "note": null }
+  ]
+}

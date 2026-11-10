@@ -1,0 +1,38 @@
+{
+  "_table": "grilles_entretien",
+  "_source": "dossier_reconversion.pdf — Parties 2, 4 et 7. Le rapport_recherche.md (bloc « grilles d'entretien ») n'ayant pas été fourni, ces grilles sont assemblées depuis le dossier.",
+  "items": [
+    {
+      "id": "gr-expert-iard", "poste": "Expert IARD junior — entreprises / transport",
+      "themes_evalues": ["Compréhension du métier (enquête + argent + contradictoire + service)", "Bases juridiques (L.113-2/8/9, L.114-1, L.121-1/5/12, L.121-18)", "Chiffrage : règle proportionnelle, chaîne VàN→indemnité, perte d'exploitation", "Posture contradictoire et fermeté calme", "Réalisme salarial (40-45 k€)"],
+      "questionIds": ["q-rh-pourquoi-expertise", "q-rh-conformite", "q-rh-chantier", "q-rh-cv-officer", "q-rh-militaire", "q-rh-pretentions", "q-rh-faiblesse", "q-fond-cause-electrique", "q-fond-acte-volontaire", "q-fond-convocation", "q-fond-scelles", "q-fond-aggravation", "q-tech-deb-dab-rc", "q-tech-deb-franchise", "q-tech-deb-subrogation", "q-tech-int-rp", "q-tech-int-marge", "q-tech-int-adr14", "q-tech-conf-faute", "q-tech-conf-carence", "q-tech-conf-clause", "q-tech-conf-cmr29"],
+      "a_poser": ["Délégation de règlement et tutorat d'un junior ?", "Parcours TEA/EEA ?", "Véhicule, secteur, nuits dehors, astreintes catastrophes naturelles ?", "Outils ?"],
+      "ce_qui_fait_recaler": ["Discours de contrôleur", "Gêne à parler d'argent", "Rigidité", "Confusion DAB / RC"],
+      "statut": "V", "source_url": null, "date_verification": null, "note": null
+    },
+    {
+      "id": "gr-risk-engineer", "poste": "Risk engineer — property & hazardous materials",
+      "themes_evalues": ["Grille COPE et EML (plus grand compartiment)", "Protections : sprinklers (NFPA 13/25, APSAD R1), mises hors service", "Matières dangereuses : ATEX, lithium, ICPE/Seveso", "Rédaction en anglais (risk survey report)", "Recommandations hiérarchisées par réduction d'EML et par coût"],
+      "questionIds": ["q-tech-conf-eml", "q-tech-int-adr14", "qf-16", "qf-17", "qf-18", "qf-19", "qf-20", "qf-21", "qf-22", "qf-23", "q-rh-militaire", "q-rh-allemand"],
+      "a_poser": ["Référentiel maison (FM Data Sheets, NFPA, APSAD) ?", "Part de terrain réelle et périmètre géographique ?", "Langue des rapports ?", "Parcours de formation interne ?"],
+      "ce_qui_fait_recaler": ["Faiblesse sur l'hydraulique sprinklers non assumée (parade : module CNPP/APSAD)", "Jargon militaire"],
+      "statut": "V", "source_url": null, "date_verification": null, "note": null
+    },
+    {
+      "id": "gr-dd-ehs", "poste": "Consultant due diligence EHS / ESG",
+      "themes_evalues": ["Ordre de lecture : permis → inspections → sols et eaux → amiante/PFAS → santé-sécurité → litiges", "Red flags : matériel, probable, chiffrable, traitable contractuellement", "Traduction contractuelle : indemnité spécifique, séquestre, GAP, condition suspensive", "Anglais écrit (red flag report)", "CSRD post-Omnibus, Phase I/II, NF X31-620"],
+      "questionIds": ["qf-24", "qf-25", "qf-26", "qf-27", "qf-28", "qf-29", "qf-30", "q-rh-conformite"],
+      "a_poser": ["Mix missions DD / autres prestations ?", "Accès aux data rooms et aux sites ?", "Modèle de rapport et reliance ?"],
+      "ce_qui_fait_recaler": ["Red flags non chiffrés", "Supprimer un constat sous pression du vendeur (on peut reformuler le niveau de certitude, jamais supprimer un constat ; tracer les échanges)"],
+      "statut": "V", "source_url": null, "date_verification": null, "note": null
+    },
+    {
+      "id": "gr-suisse", "poste": "Suisse — bureau d'ingénieurs / conseiller à la sécurité (OCS)",
+      "themes_evalues": ["Textes suisses : OPAM, OSites, OLED, LPE, LEaux, SDR/OCS, AEAI", "Monopoles ECA vs marchés libres (Genève, Valais)", "Dossier de candidature suisse (CV photo, certificats de travail, CECR)", "Statut frontalier : télétravail 40 % / 49,9 %, imposition", "Allemand : plan réaliste"],
+      "questionIds": ["qf-31", "qf-32", "qf-33", "qf-34", "qf-35", "qf-37", "qf-38", "q-rh-allemand"],
+      "a_poser": ["Langue des rapports ?", "Portefeuille de clients soumis à l'OCS ?", "Salaire en brut annuel, 12 ou 13 mois ?"],
+      "ce_qui_fait_recaler": ["Promettre un allemand B2 en 3 mois", "Ignorer les certificats de travail"],
+      "statut": "V", "source_url": null, "date_verification": null, "note": null
+    }
+  ]
+}

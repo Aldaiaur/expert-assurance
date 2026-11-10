@@ -1,0 +1,5 @@
+# Donnees personnelles et sources brutes : jamais versionnees
+sources/
+__pycache__/
+*.pyc
+.pytest_cache/

@@ -1,0 +1,131 @@
+{
+  "_table": "scenarios",
+  "_source": "Cas pratiques 1 à 3 du dossier (Partie 5), complétés de valeurs fictives marquées « fictif-ajout » pour permettre le déroulé de bout en bout. TOUT EST FICTIF : montants, parties et lieux ne correspondent à aucun dossier réel. Les chiffres attendus du « scénario (a) » du rapport_recherche.md (2 329 000 / 585 000 / 1 379 927) ne sont pas reproductibles sans ce fichier, non fourni — voir a_verifier.",
+  "items": [
+    {
+      "id": "scn-a", "code": "a", "marque": "FICTIF",
+      "titre": "Incendie d'un atelier de décolletage (vallée de l'Arve)",
+      "resume": "PME de décolletage, 6 M€ de CA. Feu de nuit sur des tours multibroches (copeaux huileux). Dommages directs 1,5 M€ dont 1 M€ de matériel. Matériel déclaré 2 M€ pour une valeur réelle de 2,5 M€ : règle proportionnelle de 80 %. Perte d'exploitation sur 3 mois.",
+      "donnees": {
+        "ca_annuel": { "valeur": 6000000, "origine": "dossier" },
+        "dommages_totaux_van": { "valeur": 1500000, "origine": "dossier" },
+        "materiel_dommage_van": { "valeur": 1000000, "origine": "dossier" },
+        "materiel_declare": { "valeur": 2000000, "origine": "dossier" },
+        "materiel_reel": { "valeur": 2500000, "origine": "dossier" },
+        "autres_postes_dommage": { "valeur": 500000, "origine": "fictif-ajout", "note": "Bâtiment et stock, correctement déclarés : PAS de règle proportionnelle (piège du cas 1)" },
+        "taux_vetuste_materiel": { "valeur": 0.15, "origine": "fictif-ajout" },
+        "taux_rachat_max": { "valeur": 0.25, "origine": "fictif-ajout" },
+        "franchise_dab": { "valeur": 10000, "origine": "fictif-ajout" },
+        "charges_variables": { "valeur": 0.40, "origine": "dossier" },
+        "taux_marge_brute": { "valeur": 0.60, "origine": "dossier" },
+        "baisse_ca": { "valeur": 1200000, "origine": "dossier", "note": "Sur 3 mois" },
+        "frais_supplementaires": { "valeur": 90000, "origine": "dossier", "note": "Sous-traitance d'urgence — indemnisable si elle a évité une perte au moins équivalente" },
+        "perte_evitee_par_frais": { "valeur": 90000, "origine": "fictif-ajout" },
+        "economies_charges": { "valeur": 30000, "origine": "dossier" }
+      },
+      "resultats_calcules": {
+        "rp_materiel": { "calcul": "calc-rp-capitaux", "entrees": { "dommage": 1000000, "declare": 2000000, "reel": 2500000 }, "attendu": 800000, "note": "RP 80 % : 800 k€ sur le matériel avant franchise et vétusté (chiffre du dossier)" },
+        "chaine_materiel": { "calcul": "calc-chaine-indemnite", "entrees": { "dommage_van": 1000000, "taux_vetuste": 0.15, "declare": 2000000, "reel": 2500000, "franchise": 10000, "plafond": null, "taux_rachat_max": 0.25 }, "attendu": { "immediat": 670000, "differe": 120000 }, "note": "VD 850 k€ × 80 % − 10 k€ = 670 k€ ; différé min(150 ; 212,5) × 80 % = 120 k€ — vétusté et franchise fictives" },
+        "pe_sans_frais": { "calcul": "calc-pe", "entrees": { "baisse_ca": 1200000, "taux_marge": 0.60, "frais_supp": 0, "perte_evitee": 0, "economies": 30000 }, "attendu": 690000, "note": "Chiffre du dossier : 720 − 30 = 690 k€" },
+        "pe_avec_frais": { "calcul": "calc-pe", "entrees": { "baisse_ca": 1200000, "taux_marge": 0.60, "frais_supp": 90000, "perte_evitee": 90000, "economies": 30000 }, "attendu": 780000 }
+      },
+      "deroule": [
+        { "etapeId": "et-01", "contenu": "Mission de l'assureur DAB/PE de la PME. Vérifier l'étendue : dommages directs + PE. Délais : déclaration faite à J+1." },
+        { "etapeId": "et-02", "contenu": "Bâchage de la toiture, rétention des eaux d'extinction, traitement anticorrosion immédiat des tours épargnées (brouillard corrosif), scellés sur l'armoire électrique de la zone d'origine." },
+        { "etapeId": "et-03", "contenu": "Convoquer : assuré, fabricant des tours, mainteneur, installateur de l'extinction embarquée, et leurs assureurs RC. Par écrit, délai raisonnable. RIEN ne bouge avant." },
+        { "etapeId": "et-04", "contenu": "Feu détecté à 2 h 40 par télésurveillance ; dernière équipe partie à 21 h. Copeaux huileux au poste 4. Reconstituer la chronologie SDIS." },
+        { "etapeId": "et-05", "contenu": "Police + avenants, questionnaire de risque, inventaire du matériel avec valeurs, liasses fiscales 3 ans, CA mensuel 36 mois, contrats de maintenance, permis de feu, vérifications électriques." },
+        { "etapeId": "et-06", "contenu": "Hypothèses : auto-échauffement des copeaux, défaut électrique, extinction embarquée défaillante, point chaud. Vérifier maintenance et permis de feu. Prélèvements et arc mapping avant toute conclusion." },
+        { "etapeId": "et-07", "contenu": "Garantie incendie acquise sauf fait exclusif. Contrôle des capitaux : matériel déclaré 2 M€ / réel 2,5 M€ → RP 80 % sur CE poste. Vérifier une clause de tolérance." },
+        { "etapeId": "et-08", "contenu": "Matériel : chaîne complète (vétusté 15 % fictive, RP 80 %, franchise 10 k€) → 670 k€ immédiat + 120 k€ différé. Autres postes (500 k€) : PAS de RP — le piège du cas est de l'appliquer au bâtiment." },
+        { "etapeId": "et-09", "contenu": "Marge brute 60 % × 1,2 M€ = 720 k€, − 30 k€ d'économies = 690 k€. Les 90 k€ de sous-traitance s'ajoutent s'ils ont évité une perte au moins équivalente → 780 k€." },
+        { "etapeId": "et-10", "contenu": "Recours : responsabilité du fait des produits (C. civ. 1245 et s.) contre le fabricant, ou contractuelle contre le mainteneur de l'extinction embarquée, par subrogation (L.121-12)." },
+        { "etapeId": "et-11", "contenu": "Réserve initiale : DAB ≈ 1,2 M€ + PE ≈ 0,8 M€. Acompte à proposer dans les délais L.121-18 (expert désigné : 6 mois max)." },
+        { "etapeId": "et-12", "contenu": "Rapport préliminaire sous 15 jours (trame dédiée) ; PV contradictoire des constats ; rapport définitif après analyses labo." }
+      ],
+      "pieges": ["Démonter avant convocation", "Appliquer la règle proportionnelle au bâtiment", "Confondre marge comptable et marge assurée"],
+      "version_en": "Bar-turning workshop fire: mitigation, joint origin & cause, average on underinsured machinery, BI = lost gross profit + ICOW, recovery.",
+      "statut": "fictif", "source_url": null, "date_verification": null,
+      "note": "Chiffres de base : cas 1 du dossier. Vétusté, franchise, répartition des autres postes : ajouts fictifs signalés dans donnees."
+    },
+    {
+      "id": "scn-b", "code": "b", "marque": "FICTIF",
+      "titre": "Citerne TMD renversée : 8 m³ d'UN 1202 dans un torrent (Haute-Savoie)",
+      "resume": "Ensemble citerne renversé sur route de montagne : 8 m³ de gazole (UN 1202) atteignent un torrent. Pollution, captages en aval, garanties multiples (RC auto, RC environnement, LRE, facultés), responsabilités ADR.",
+      "donnees": {
+        "produit": { "valeur": "UN 1202 (gazole)", "origine": "dossier" },
+        "volume_deverse_m3": { "valeur": 8, "origine": "dossier" },
+        "poids_kg": { "valeur": 6800, "origine": "fictif-ajout", "note": "8 m³ × 0,85 kg/L — hypothèse de densité, à ajuster" },
+        "valeur_marchandise": { "valeur": 12000, "origine": "fictif-ajout" },
+        "chiffrage_bas": { "valeur": 270000, "origine": "fictif-ajout", "note": "Pompage/écrémage 60 k€ + curage berges 150 k€ + analyses 20 k€ + suivi piscicole 1 an 40 k€" },
+        "chiffrage_probable": { "valeur": 520000, "origine": "fictif-ajout", "note": "Pompage 90 k€ + curage 280 k€ + analyses 35 k€ + suivi 2 ans 115 k€" },
+        "chiffrage_haut": { "valeur": 730000, "origine": "fictif-ajout", "note": "Pompage 120 k€ + curage 400 k€ + analyses 50 k€ + suivi 3 ans 160 k€" }
+      },
+      "resultats_calcules": {
+        "plafond_cmr_si_international": { "calcul": "calc-plafonds-transport", "entrees": { "regime": "cmr", "poids_kg": 6800, "nb_colis": 1 }, "attendu": 56644, "note": "6 800 × 8,33 = 56 644 DTS — pour la marchandise elle-même" },
+        "plafond_ctg_si_national": { "calcul": "calc-plafonds-transport", "entrees": { "regime": "ctg_3t_et_plus", "poids_kg": 6800, "nb_colis": 1 }, "attendu": 21760, "note": "min(20 × 6 800 = 136 000 ; 3 200 × 6,8 = 21 760) = 21 760 €" }
+      },
+      "deroule": [
+        { "etapeId": "et-01", "contenu": "Selon le mandant : assureur RC du transporteur, assureur facultés, ou RC environnement. Bien cadrer qui couvre quoi." },
+        { "etapeId": "et-02", "contenu": "Acteurs d'urgence déjà en place : SDIS, gendarmerie, maire et préfet, DREAL, OFB, ARS (captages d'eau potable), gestionnaire de voirie, TRANSAID. Barrages flottants, pompage, écrémage." },
+        { "etapeId": "et-03", "contenu": "Convoquer transporteur, expéditeur, remplisseur, chargeur (obligations ADR 1.4) et leurs assureurs. Le conseiller à la sécurité du transporteur rédige le rapport d'accident (ADR 1.8.3 — référence à confirmer)." },
+        { "etapeId": "et-04", "contenu": "Chronologie : heure du renversement, délai d'alerte, cinétique d'arrivée au torrent, météo (crue ?)." },
+        { "etapeId": "et-05", "contenu": "Lettre de voiture, document de transport ADR, consignes écrites, certificat de formation du conducteur, disque/tachygraphe, contrat de transport." },
+        { "etapeId": "et-06", "contenu": "Cause du renversement : vitesse, chargement/arrimage, état de la route, défaillance mécanique. Répartition des responsabilités selon ADR 1.4." },
+        { "etapeId": "et-07", "contenu": "Garanties mobilisables : RC automobile (loi de 1985 ; articulation avec la marchandise à vérifier) ; RC environnement / Assurpol ; LRE (réparation primaire, complémentaire, compensatoire) ; facultés pour la marchandise." },
+        { "etapeId": "et-08", "contenu": "Chiffrage en fourchettes basse / probable / haute : pompage, curage des berges, analyses, suivi piscicole sur 1 à 3 ans. PIÈGE : oublier les captages en aval (ARS)." },
+        { "etapeId": "et-09", "contenu": "PE éventuelle de tiers (ex. pisciculture aval, restrictions d'eau) : à traiter en RC, pas en DAB." },
+        { "etapeId": "et-10", "contenu": "Recours selon cause : transporteur vs expéditeur/chargeur (ADR 1.4). Plafonds marchandise : CMR 8,33 DTS/kg à l'international, contrat type au national. Réserves dans les délais." },
+        { "etapeId": "et-11", "contenu": "Réserve par fourchette (270 / 520 / 730 k€ fictifs), à réviser après les premières analyses." },
+        { "etapeId": "et-12", "contenu": "Rapport : distinguer dommages à la marchandise (plafonnés), frais de dépollution (LRE/RC env.) et dommages aux tiers." }
+      ],
+      "pieges": ["Oublier les captages en aval", "Confondre les régimes : RC auto / RC env / LRE / facultés", "Laisser passer les réserves transport"],
+      "version_en": "Overturned fuel tanker polluting a mountain stream: emergency response actors, ADR 1.4 duties, layered covers (motor TPL, EIL, environmental liability, cargo), ranged costing.",
+      "statut": "fictif", "source_url": null, "date_verification": null,
+      "note": "Cadre : cas 2 du dossier. Tous les montants de chiffrage sont des ajouts fictifs en fourchettes."
+    },
+    {
+      "id": "scn-c", "code": "c", "marque": "FICTIF",
+      "titre": "Incendie d'un entrepôt de batteries lithium",
+      "resume": "Cellule de stockage de batteries lithium-ion. Trois hypothèses : emballement thermique, source externe, malveillance. Sous-déclaration du bâtiment, stock correctement déclaré, carence du client en PE, volet cargo (UN 3480/3481).",
+      "donnees": {
+        "surface_cellule_m2": { "valeur": 4000, "origine": "fictif-ajout" },
+        "batiment_dommage_van": { "valeur": 900000, "origine": "fictif-ajout" },
+        "batiment_declare": { "valeur": 2800000, "origine": "fictif-ajout" },
+        "batiment_reel": { "valeur": 3500000, "origine": "fictif-ajout" },
+        "taux_vetuste_batiment": { "valeur": 0.20, "origine": "fictif-ajout" },
+        "taux_rachat_max": { "valeur": 0.25, "origine": "fictif-ajout" },
+        "stock_dommage": { "valeur": 1200000, "origine": "fictif-ajout", "note": "Stock de batteries, correctement déclaré : pas de RP" },
+        "franchise": { "valeur": 25000, "origine": "fictif-ajout" },
+        "lci": { "valeur": 2000000, "origine": "fictif-ajout" },
+        "baisse_ca": { "valeur": 800000, "origine": "fictif-ajout" },
+        "taux_marge_brute": { "valeur": 0.55, "origine": "fictif-ajout" },
+        "frais_supplementaires": { "valeur": 60000, "origine": "fictif-ajout" },
+        "perte_evitee_par_frais": { "valeur": 100000, "origine": "fictif-ajout" },
+        "economies_charges": { "valeur": 20000, "origine": "fictif-ajout" }
+      },
+      "resultats_calcules": {
+        "chaine_batiment": { "calcul": "calc-chaine-indemnite", "entrees": { "dommage_van": 900000, "taux_vetuste": 0.20, "declare": 2800000, "reel": 3500000, "franchise": 25000, "plafond": null, "taux_rachat_max": 0.25 }, "attendu": { "immediat": 551000, "differe": 144000 }, "note": "VD 720 k€ × 80 % − 25 k€ = 551 k€ ; différé min(180 ; 180) × 80 % = 144 k€" },
+        "pe": { "calcul": "calc-pe", "entrees": { "baisse_ca": 800000, "taux_marge": 0.55, "frais_supp": 60000, "perte_evitee": 100000, "economies": 20000 }, "attendu": 480000 }
+      },
+      "deroule": [
+        { "etapeId": "et-01", "contenu": "Mission DAB/PE de l'exploitant de l'entrepôt. Identifier les dépositaires : le stock appartient-il à des clients (contrat d'entreposage) ?" },
+        { "etapeId": "et-02", "contenu": "ATTENTION ré-inflammation : les batteries endommagées peuvent repartir en emballement des jours après. Zone de quarantaine extérieure, surveillance thermique, scellés sur la travée d'origine." },
+        { "etapeId": "et-03", "contenu": "Convoquer l'exploitant, les déposants concernés, le fournisseur des racks/chargeurs, et les assureurs RC. Expert d'assuré probable." },
+        { "etapeId": "et-04", "contenu": "Exploiter vidéosurveillance et BMS (système de gestion des batteries) : alarmes de température/tension avant départ de feu ?" },
+        { "etapeId": "et-05", "contenu": "Police, plan de stockage, inventaire par déposant, contrats d'entreposage (Incoterms des flux), conformité UN 3480/3481 des lots reçus." },
+        { "etapeId": "et-06", "contenu": "Trois hypothèses à instruire en parallèle : emballement thermique (défaut interne ou charge), source externe, malveillance. Scellés, prélèvements, sapiteur batterie si besoin." },
+        { "etapeId": "et-07", "contenu": "Garanties : vérifier les règles de stockage imposées par la police (sprinklers, hauteurs, quantités) et les déclarations. Bâtiment sous-déclaré → RP 80 %." },
+        { "etapeId": "et-08", "contenu": "Bâtiment : chaîne complète → 551 k€ immédiat + 144 k€ différé. Stock : 1,2 M€ sans RP. Total sous LCI 2 M€ : vérifier ligne à ligne." },
+        { "etapeId": "et-09", "contenu": "PE : 55 % × 800 k€ + 60 k€ de frais (retenus car perte évitée 100 k€) − 20 k€ = 480 k€. Penser à la carence subie par LE CLIENT de l'entrepôt (contingent BI chez lui, pas ici)." },
+        { "etapeId": "et-10", "contenu": "Volet cargo : recours contre l'expéditeur d'un lot non conforme UN 3480/3481 ; contrats d'entreposage et Incoterms déterminent qui supporte quoi." },
+        { "etapeId": "et-11", "contenu": "Réserve : DAB ≈ 1,8 M€ + PE ≈ 0,5 M€. Acomptes dans les délais L.121-18." },
+        { "etapeId": "et-12", "contenu": "Rapport : cause documentée (ou hypothèses hiérarchisées), chiffrage par poste, application LCI/franchise, recours cargo." }
+      ],
+      "pieges": ["Sous-estimer la ré-inflammation", "Oublier le volet contractuel (entreposage, Incoterms)", "Mélanger PE de l'exploitant et carence des clients"],
+      "version_en": "Lithium battery warehouse fire: thermal runaway vs external vs arson, BMS/CCTV evidence, re-ignition risk, UN 3480/3481 cargo compliance, recovery against shipper.",
+      "statut": "fictif", "source_url": null, "date_verification": null,
+      "note": "Cadre : cas 3 du dossier. Tous les montants sont des ajouts fictifs."
+    }
+  ]
+}

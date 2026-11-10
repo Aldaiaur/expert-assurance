@@ -1,0 +1,225 @@
+{
+  "_table": "fiches",
+  "_source": "dossier_reconversion.pdf — Parties 0, 2, 4, 6 et 7. La numérotation « noyau dur 1.0 à 1.11 » appartient au rapport_recherche.md, non fourni : les fiches ci-dessous sont numérotées D-1 à D-16 (D = dossier).",
+  "_anonymisation": "L'employeur actuel est désigné « organisme public de recherche » (règle du dépôt : aucune mention de l'organisme d'origine).",
+  "items": [
+    {
+      "id": "fiche-ecosysteme", "numero": "D-1", "titre": "Écosystème de l'assurance dommages", "theme": "ecosysteme",
+      "points": [
+        "L'assuré passe par un courtier (son mandataire) ou par un agent général (mandataire de l'assureur).",
+        "L'assureur, ou l'apériteur en coassurance, se réassure.",
+        "Le souscripteur tarife avec l'aide du risk engineer.",
+        "Le gestionnaire sinistres mandate l'expert d'assurance ; l'assuré peut mandater son propre expert d'assuré (Cabinet Roux, Galtier).",
+        "En cas de litige : référé-expertise, puis expert judiciaire.",
+        "M&A : l'acquéreur s'entoure de banques, d'avocats (SPA, GAP), des Big 4 (DD financière) et de consultants EHS ; l'assureur W&I lit le rapport.",
+        "Suisse : assureurs privés ; ECA (établissements cantonaux) en monopole dans 19 cantons dont Vaud, Fribourg, Neuchâtel, Jura ; Suva, services cantonaux, OFEV, OFROU, bureaux d'ingénieurs."
+      ],
+      "liens": { "referenceIds": [], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 2.1"
+    },
+    {
+      "id": "fiche-metier-expert", "numero": "D-2", "titre": "Métier A — Expert d'assurance côté assureur (France)", "theme": "metier",
+      "points": [
+        "Quotidien (ordres de grandeur de terrain, non sourcés) : 30-50 % de terrain, le reste en chiffrage et rédaction ; un junior « entreprises » traite des dossiers modestes, sous tutelle ; mobilisation lors des catastrophes naturelles. Le chiffre de 40-80 dossiers avancé par l'annexe B n'est pas sourcé.",
+        "Livrables : rapport préliminaire ; procès-verbal contradictoire ; état de pertes ; rapport définitif (cause, chiffrage, franchises, règle proportionnelle, recours).",
+        "KPI : délais, écart entre réserve et règlement, recours exercés.",
+        "Compétences attendues : lecture de police, technique, chiffrage, perte d'exploitation, fermeté calme, empathie.",
+        "Ce qui fait recaler : discours de contrôleur, gêne à parler d'argent, rigidité, confusion DAB / RC.",
+        "Parcours : junior → confirmé (EEA) → « majeurs / entreprises » → directeur d'agence, expert d'assuré (au pourcentage) ou expert judiciaire (liste de cour d'appel).",
+        "Adéquation profil : forte en transport de marchandises, pollution et risques d'entreprise ; faible en construction pure."
+      ],
+      "liens": { "referenceIds": ["ref-l113-2", "ref-l113-8", "ref-l113-9", "ref-l114-1", "ref-l121-1", "ref-l121-12"], "questionIds": [], "calculIds": ["calc-rp-capitaux", "calc-pe"], "scenarioIds": ["scn-a"] },
+      "statut": "ordre_de_grandeur", "source_url": null, "date_verification": null, "note": "Partie 2.2 ; les pourcentages de terrain sont des estimations non sourcées"
+    },
+    {
+      "id": "fiche-reflexe-expert", "numero": "D-3", "titre": "Fiche réflexe — Expert IARD entreprises", "theme": "fiche_reflexe",
+      "points": [
+        "Mission : constater, établir la cause, chiffrer, appliquer la police, préserver les recours, toujours de façon contradictoire.",
+        "Réflexes : mesures conservatoires ; convoquer avant tout démontage ; scellés ; garanties et capitaux ; recours.",
+        "Articles : L.113-2, L.113-8, L.113-9, L.121-12, L.114-1.",
+        "Perte d'exploitation : marge brute assurée = CA − charges variables ; perte = taux de marge brute × baisse de CA + frais supplémentaires − économies.",
+        "Question à poser : « Quelle délégation et quel tutorat pour un junior ? »"
+      ],
+      "liens": { "referenceIds": ["ref-l113-2", "ref-l113-8", "ref-l113-9", "ref-l121-12", "ref-l114-1"], "questionIds": [], "calculIds": ["calc-pe", "calc-rp-capitaux", "calc-rp-prime"], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 2.2 (encadré)"
+    },
+    {
+      "id": "fiche-metier-riskeng", "numero": "D-4", "titre": "Métier B — Risk Engineer", "theme": "metier",
+      "points": [
+        "Visites de 1 à 2 jours ; rapports en anglais chez les assureurs internationaux.",
+        "Estimations SMP/EML/PML/MFL selon les définitions propres à chaque assureur.",
+        "Recommandations hiérarchisées et suivi des mises hors service des protections (impairments).",
+        "Exigences observées : Zurich USA, au moins 3 ans d'expérience pour un consultant (CFPS en atout) ; offre suisse « Risk Engineer Sachversicherung » : formation incendie, explosion ou continuité d'activité (BCM) + expérience industrielle ; FM forme ses recrues en interne.",
+        "Adéquation profil : forte sur les stockages de matières dangereuses, l'ATEX et le lithium ; faible sur l'hydraulique des sprinklers. Parade : un module CNPP/APSAD et les FM Data Sheets.",
+        "Part de terrain : environ 40-60 % (estimation)."
+      ],
+      "liens": { "referenceIds": ["ref-nfpa13-25", "ref-apsad-r1", "ref-fm-datasheets", "ref-atex-2014-34", "ref-atex-1999-92"], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 2.3 ; part de terrain = estimation"
+    },
+    {
+      "id": "fiche-reflexe-riskeng", "numero": "D-5", "titre": "Fiche réflexe — Risk Engineer", "theme": "fiche_reflexe",
+      "points": [
+        "Grille COPE : construction, occupation, protection, exposition.",
+        "EML : raisonner sur le plus grand compartiment.",
+        "Recommandations physiques, humaines ou organisationnelles, classées par réduction de l'EML et par coût.",
+        "Phrase type : « The loss estimate assumes the sprinkler system is impaired and the fire wall holds. »"
+      ],
+      "liens": { "referenceIds": ["ref-nfpa13-25", "ref-fm-datasheets"], "questionIds": [], "calculIds": [], "scenarioIds": ["scn-c"] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 2.3 (encadré)"
+    },
+    {
+      "id": "fiche-metier-dd", "numero": "D-6", "titre": "Métier C — Due Diligence EHS / ESG", "theme": "metier",
+      "points": [
+        "Mission type (2 à 4 semaines) : revue de la data room ; visite de site d'une demi-journée à une journée avec entretiens de la direction ; rapport « red flags » assorti de fourchettes de CAPEX/OPEX ; traduction contractuelle (indemnité spécifique, séquestre, ajustement de prix).",
+        "Réalité : 70 à 85 % de travail de bureau (estimation), en anglais. Le métier le plus proche d'un futur conseil indépendant.",
+        "Marché : Ginger Burgeap a intégré 50 ingénieurs de HPC le 1er juillet 2026 ; l'Omnibus I recentre l'ESG sur les risques matériels.",
+        "Adéquation : bonne sur la conformité ICPE, TMD et déchets ; faible sur les sols et les nappes. Parade : une formation sites et sols pollués (NF X31-620)."
+      ],
+      "liens": { "referenceIds": ["ref-astm-e1527", "ref-nfx31-620", "ref-csrd-omnibus"], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 2.4 ; parts de bureau = estimation"
+    },
+    {
+      "id": "fiche-reflexe-dd", "numero": "D-7", "titre": "Fiche réflexe — DD EHS", "theme": "fiche_reflexe",
+      "points": [
+        "Ordre de lecture : permis → inspections et mises en demeure → sols et eaux → amiante/PFAS → santé-sécurité → litiges.",
+        "Un red flag est matériel, probable, chiffrable et traitable contractuellement.",
+        "L'indépendance ne se négocie pas."
+      ],
+      "liens": { "referenceIds": ["ref-astm-e1527", "ref-nfx31-620"], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 2.4 (encadré)"
+    },
+    {
+      "id": "fiche-suisse", "numero": "D-8", "titre": "Déclinaisons suisses", "theme": "suisse",
+      "points": [
+        "Inspecteur de sinistres / Schadeninspektor (Zurich, Helvetia Baloise, Mobilière, AXA, Vaudoise) : Zurich Valais exige au moins 5 ans, allemand en atout ; accessibilité faible maintenant, forte après 2-3 ans en France.",
+        "Spécialiste sinistres / Schadenspezialist (CFF, sièges d'assureurs) : allemand C1 ; accessibilité faible.",
+        "Risk Engineer Sachversicherung (assureurs, courtiers) : ingénieur, incendie/explosion/BCM ; accessibilité moyenne à faible.",
+        "Ingénieur environnement OPAM / OSites / SER (bureaux d'ingénieurs) : droit suisse ; MEILLEURE PORTE IMMÉDIATE.",
+        "Expert prévention ECA (ECA Vaud) : au moins 5 ans ; accessibilité faible.",
+        "Conseiller à la sécurité (OCS) / Gefahrgutbeauftragter (chimie, logistique, prestataires ex. Ecoservices) : l'OCS impose un conseiller pour le transport, l'emballage, le remplissage, l'expédition, le chargement et le déchargement ; accessibilité FORTE.",
+        "Dossier de candidature : CV avec photo ; certificats de travail (à défaut, lettres de recommandation) ; diplômes ; niveau de langue au format CECR.",
+        "Bon à savoir : le permis G est demandé par l'employeur après l'embauche ; le salaire se discute en brut annuel, en précisant 12 ou 13 mois ; la reconnaissance OQual/MSST d'un diplôme français n'est pas vérifiée.",
+        "Textes à connaître : OPAM, OSites, OLED, LPE, LEaux, SDR/OCS, LCA, CO, SIA, AEAI.",
+        "Monopole ECA (Vaud, Fribourg, Neuchâtel, Jura) contre marché libre (Genève, Valais).",
+        "Présentation : « Frontalier, français natif, anglais C1, allemand : plan [à compléter] »."
+      ],
+      "liens": { "referenceIds": ["ref-opam", "ref-osites", "ref-sdr-ocs", "ref-lca", "ref-aeai"], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 2.5 ; reconnaissance OQual/MSST non vérifiée"
+    },
+    {
+      "id": "fiche-remuneration", "numero": "D-9", "titre": "Rémunération — repères fact-checkés", "theme": "marche",
+      "points": [
+        "France, expert junior : selon la fiche APEC « Expert d'assurances », 80 % des offres entre 33 et 50 k€ brut annuel (moyenne 40 k€) — et non 50-70 k€. Cabinet Roux Lyon : « à partir de 40 k€ ». Expert construction Lyon 7e : 48-52 k€. Exetech Montpellier : 50-55 k€ pour plus de 5 ans d'expérience. S'y ajoutent véhicule ou indemnités kilométriques, intéressement, parfois actionnariat.",
+        "Suisse, inspecteur : jobs.ch (brut, 13e inclus) : moyenne tous niveaux 93 333 CHF (secteur Assurances : 93 391 CHF) ; débutant 0-2 ans ≈ 58 500 CHF (petit échantillon, non reconfirmé) à 71 500 CHF (intitulé « inspecteur ») — loin des 105-135 k CHF annoncés. Ingénieur environnement débutant : 75-85 k CHF (FED Engineering 2026). Risk engineer : données Glassdoor contradictoires (148 k contre 90 k chez Helvetia).",
+        "Un salaire « doublé » devient plausible en brut nominal à 3-5 ans d'expérience, pas à l'entrée. Gain net frontalier à l'entrée : +40 à +70 % (estimation), pas un doublement.",
+        "Estimation illustrative : France 42 k€ brut (net ≈ 32-33 k€) + véhicule ; Vaud 80 k CHF brut 13e inclus (net ≈ 66-68 k CHF), impôt payé en France, 1 h à 1 h 30 de trajet en pointe.",
+        "Prétentions à annoncer : France 40-45 k€ fixe selon véhicule et variable ; Suisse : grilles du marché. À éviter : 55-70 k€ sans expérience.",
+        "Caveat : les chiffres jobs.ch, Glassdoor et Indeed sont auto-déclarés et reposent sur de petits échantillons."
+      ],
+      "liens": { "referenceIds": [], "questionIds": ["q-rh-pretentions"], "calculIds": [], "scenarioIds": [] },
+      "statut": "ordre_de_grandeur", "source_url": null, "date_verification": null, "note": "Fact-check n°14/15 + Partie 6.2 ; échantillons faibles"
+    },
+    {
+      "id": "fiche-certifications", "numero": "D-10", "titre": "Certifications et formation continue", "theme": "marche",
+      "points": [
+        "Le « CEA – Certificat d'Expertise en Assurance » n'existe pas. Les vrais repères : le TEA (CEA Développement) ; l'EEA du CNPP (ISO 17024, valable 6 ans, spécialité « Transport de marchandises » incluse) ; en transport, la recommandation CESAM, qui suppose l'EEA Transport.",
+        "La CEA est une chambre métier (Compagnie des experts, adossée à la FEDEA). Exemple de module FEDEA : « Expertise généraliste IARD », 5 jours, 570 € HT/jour, 2 ans de pratique « souhaitable ».",
+        "Profession non réglementée, mais certains assureurs ou conventions exigent le TEA ou l'EEA (L'Argus).",
+        "Prioritaires : module FEDEA (après l'embauche) ; module CNPP sprinklers ; formation courte sites et sols pollués ; allemand ; NEBOSH IGC (coût à vérifier).",
+        "Non prioritaires : PCR niveau 2, habilitation BE Vérification.",
+        "Sprint de 6 semaines : 1. Code des assurances et perte d'exploitation (Légifrance, FEDEA) · 2. Incendie (NFPA 921, CNPP, INRS) · 3. Sprinklers et lithium (FM Data Sheets) · 4. Sites et sols pollués, ICPE, Phase I · 5. Droit suisse (Fedlex, OFEV, bsvonline, Suva) · 6. Simulations d'entretien."
+      ],
+      "liens": { "referenceIds": ["ref-iso-17024", "ref-nfpa-921", "ref-fm-datasheets"], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Fact-check n°6/7 + Partie 6.4 ; coût NEBOSH non vérifié"
+    },
+    {
+      "id": "fiche-marche", "numero": "D-11", "titre": "Le marché bouge — actualités structurantes", "theme": "marche",
+      "points": [
+        "Fusion Helvetia Baloise finalisée depuis le 5 décembre 2025 : moins d'embauches externes à court terme.",
+        "SGS a transféré son siège social de Genève à Baar (Zoug), voté à 88,99 % le 26 mars 2025, effectif au 1er novembre 2025 ; au moins 50 % des emplois genevois annoncés comme maintenus.",
+        "La CSRD a été réduite par l'Omnibus I : directive (UE) 2026/470, adoptée le 24 février 2026, publiée au JOUE le 26 février, en vigueur depuis le 18 mars 2026 ; transposition du volet CSRD au plus tard le 19 mars 2027 ; seuils cumulatifs : plus de 1 000 salariés ET plus de 450 M€ de CA.",
+        "Expertise : consolidation (Polyexpert–AM Group, Stelliant–HDE). L'IA automatise les petits sinistres et valorise les experts des dossiers complexes.",
+        "Allianz Risk Barometer 2026 : cyber n°1 (5e année, 42 %), IA n°2 (32 %, contre n°10 en 2025), interruption d'activité n°3 (première sortie du top 2), incendie n°9.",
+        "AEAI : PPI 2015 en vigueur, partiellement révisées au 1er avril 2026 ; les « PPI 2026 » entreront en vigueur à l'automne 2027 (AEAI/AIET), après plus de 11 000 commentaires et l'incendie de Crans-Montana."
+      ],
+      "liens": { "referenceIds": ["ref-csrd-omnibus", "ref-aeai"], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 0 (point 7), fact-check n°12/18/21/28, Partie 6.4"
+    },
+    {
+      "id": "fiche-priorisation", "numero": "D-12", "titre": "Priorisation des pistes (plan d'attaque)", "theme": "positionnement",
+      "points": [
+        "1. Expert IARD junior entreprises/transport (Lyon, Annecy, Chambéry) — formation interne, terrain, contradictoire, TMD valorisable — dès novembre 2026.",
+        "2. Risk engineer (assureurs, courtiers, FM) — technique, rapports en anglais, tremplin vers la Suisse — en parallèle.",
+        "3. Consultant DD EHS / sites et sols pollués — projets courts, prépare un futur conseil indépendant — en parallèle.",
+        "4. Suisse : bureaux d'ingénieurs, conseiller sécurité TMD — accessible sans expérience des sinistres — veille active.",
+        "5. Suisse : inspecteur de sinistres — exige de l'expérience — 2028-2029.",
+        "B. Organismes de contrôle, HSE Seveso, CERN — plan B rapide ; cycle CERN non vérifié — si aucune offre fin mars 2027.",
+        "Matrice de l'auteur (notes 1-5, total) : Expert FR 39 · Risk eng. 34 · Inspecteur CH 33 · Bureau CH 32 · Contrôle 31 · DD EHS 28 · CERN 27.",
+        "Le risque d'ennui existe partout : expertise junior = beaucoup de rédaction au départ ; DD = surtout du bureau ; risk engineering = du terrain, mais normé. Meilleur ratio action/enjeu à 3-5 ans : l'expertise « entreprises / grands risques »."
+      ],
+      "liens": { "referenceIds": [], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 0 (priorisation) + Partie 6.1 ; matrice = jugement de l'auteur"
+    },
+    {
+      "id": "fiche-france-suisse", "numero": "D-13", "titre": "France ou Suisse — règles frontalières", "theme": "suisse",
+      "points": [
+        "Télétravail : seuil fiscal de 40 % (avenant du 27 juin 2023, accord amiable de 2026) ; seuil social de 49,9 % avec attestation A1 (25 % sans demande).",
+        "Imposition : à la source à Genève ; en France pour VD, VS, NE, JU, BE, SO, BS et BL (accord de 1983).",
+        "Non vérifié : le statut de quasi-résident, le régime LAMal/CMU et la LPP.",
+        "Période d'essai : France 4 mois pour un cadre, renouvelable si la branche le prévoit ; Suisse 1 mois par défaut, 3 mois au maximum (CO 335b).",
+        "Non-concurrence : France, clause limitée avec contrepartie financière ; Suisse, 3 ans au maximum (CO 340 et suivants).",
+        "Négociation : France — fixe, véhicule, intéressement, télétravail, certification ; Suisse — brut annuel 13e mois inclus, LPP, frais.",
+        "Règles de décision : offre FR ≥ 40 k€ avec tutorat : go. Bureau d'ingénieurs CH ≥ 78 k CHF (13e inclus) : go si trajet acceptable. CERN : go si l'offre arrive avant un autre engagement. Aucune offre fin mars 2027 : plan B, puis bascule vers l'expertise à 18 mois.",
+        "Préavis fonction publique : décret 86-83, art. 48 (à vérifier) : 1 mois entre 6 mois et 2 ans d'ancienneté."
+      ],
+      "liens": { "referenceIds": [], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 6.2 + 7.4 ; items marqués non vérifiés dans a_verifier"
+    },
+    {
+      "id": "fiche-positionnement", "numero": "D-14", "titre": "Positionnement et récit", "theme": "positionnement",
+      "points": [
+        "Le profil combine réglementaire, audit, flux dangereux et leadership militaire : il se vend en expertise transport/TMD, pollution et risques d'entreprise ; il ne se vend pas en expertise construction pure.",
+        "Étiquettes par piste : expertise « risques & transport, investigation » ; risk engineering « hazardous materials & fire » ; due diligence « EHS compliance & audit ».",
+        "Contre le stigmate « conformité documentaire » : des verbes de terrain, des chiffres, un portfolio anonymisé.",
+        "Le récit gagnant : terrain, décision, enquête technique (motivation pull), pas l'ennui (push). « Assumer l'ennui » est risqué : le recruteur entend « il s'ennuiera ici aussi ».",
+        "Récit de transition (FR) : « Mon poste actuel m'a donné une maîtrise fine de l'audit réglementaire. Je veux maintenant que mon analyse technique débouche sur une décision : déterminer une cause, chiffrer un dommage, défendre une position en réunion contradictoire. »",
+        "Récit (EN) : « My current role gave me rigorous audit skills. Now I want my technical analysis to drive decisions with real financial stakes. »",
+        "Mention de la réserve : « Réserviste opérationnel spécialiste – conseiller TMD, grade de capitaine (depuis 09/2026) » ; ce grade est lié à l'expertise civile, ce n'est pas une carrière d'officier. Perception : défense et secteur public très positif ; Suisse neutre à positif ; anglo-saxons positif à condition d'éviter le jargon.",
+        "L'allemand est l'angle mort : seulement un « atout » pour l'inspecteur de terrain, mais exigé pour les spécialistes centralisés (C1 dans l'offre CFF) et de nombreux postes de risk engineer."
+      ],
+      "liens": { "referenceIds": [], "questionIds": ["q-rh-pourquoi-expertise", "q-rh-militaire"], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Parties 0, 4.1, 4.2, 6.3"
+    },
+    {
+      "id": "fiche-cv-corrections", "numero": "D-15", "titre": "CV — corrections obligatoires avant candidature", "theme": "positionnement",
+      "points": [
+        "ENSOA : traduire « French Army NCO Academy » (l'ENSOA forme les sous-officiers), jamais « officer training ».",
+        "Un seul intitulé au Ministère des Armées (le CV porte deux intitulés selon les versions : « conseiller adjoint à la sécurité TMD » et « ingénieur environnement »).",
+        "Âge et ville cohérents : 30 ans, Annecy (des versions du CV portent Paris et 28/29 ans).",
+        "Ajouter la douane et la réserve : « coordination d'une équipe chargée des formalités douanières des chercheurs (Incoterms, import/export) » [à compléter] — atout cargo majeur.",
+        "Eiffage : présenter « Ingénieur RSE (alternance), Bureau performance RSE – solution de traçabilité des déchets en agences, déchets inertes, CSRD ; transfert vers l'Espagne » — une fonction RSE/déchets au siège, sans conduite de chantier. À la question « Avez-vous dirigé un chantier ? » : « Non : bureau performance RSE. Je connais les flux de déchets, pas la conduite de travaux ; d'où mon ciblage entreprise/transport. »",
+        "« 1 an d'alternance TMD + 1 an de CSTMD » est faux : en réalité 2 ans aux Armées, 2 ans chez Eiffage, environ 13 mois dans l'organisme actuel.",
+        "Décliner 3 CV ciblés avec mots-clés ATS : expertise « expertise IARD, sinistres entreprises, RC, DAB, PE, transport de marchandises, ADR, investigation » ; risk engineering « risk survey, loss prevention, sprinkler, ATEX, ICPE, Seveso, EML, BI, lithium » ; due diligence « Phase I, data room, red flag, sites et sols pollués, CAPEX, ISO 14001/45001 ».",
+        "Titres : « Ingénieur risques – sinistres d'entreprise, transport & TMD » / « Risk engineer – property & hazardous materials » / « EHS due diligence & compliance engineer ».",
+        "Accroche LinkedIn : « Ingénieur gestion des risques (ESAIP, CTI/EUR-ACE) | Conseiller sécurité TMD | Audit & investigation terrain | Ancien chef de groupe d'infanterie | Réserviste spécialiste (capitaine) ».",
+        "Diplôme ESAIP « Gestion des risques et environnement » : habilitation CTI et label EUR-ACE niveau master pour 2021-2025/26 (décision CTI 2020/12-03) ; le refus CTI de 2025 porte sur l'ouverture de l'apprentissage à Aix, pas sur l'habilitation existante ; renouvellement à contrôler."
+      ],
+      "liens": { "referenceIds": [], "questionIds": ["q-rh-cv-officer"], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "TL;DR, Top 10 des actions, fact-check n°24/25/29, Partie 4.5, et comparaison avec cv.pdf"
+    },
+    {
+      "id": "fiche-feuille-route", "numero": "D-16", "titre": "Feuille de route 2026-2029", "theme": "positionnement",
+      "points": [
+        "Mi-nov.-déc. 2026 : CV/LinkedIn, 10 entretiens informatifs, 15 candidatures — KPI : 5 contacts et 4 candidatures par semaine.",
+        "Janv.-mars 2027 : 2-3 processus avancés — KPI : 2 entretiens par semaine.",
+        "Avr.-juin 2027 : contrat signé, préavis.",
+        "S2 2027 : premiers dossiers, allemand A2, plan EEA.",
+        "2028-2029 : bascule suisse éventuelle.",
+        "Top 10 des 30 prochains jours : corriger le CV FR/EN ; décliner 3 CV ciblés ATS ; obtenir 10 entretiens informatifs ; postuler à toutes les offres « expert entreprises / RC / transport » en AURA (Saretec/Exetech, Stelliant, Polyexpert, Sedgwick, Crawford, McLarens, Cabinet Roux) ; apprendre L.113-2, L.113-8, L.113-9, L.114-1, L.121-1, L.121-12 et le calcul de la PE ; lire des résumés de la NFPA 921 et les guides CNPP/INRS ; préparer 8 récits STAR ; une simulation d'entretien en anglais + un risk survey report d'une page ; vérifier le préavis (décret 86-83) ; créer les alertes APEC, Welcome to the Jungle, jobup.ch et jobs.ch.",
+        "Événements : AMRAE, Préventica, Pollutec (Lyon), Expoprotection, Suissepro — les dates 2027 ne sont pas vérifiées."
+      ],
+      "liens": { "referenceIds": [], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 7.1 + Top 10 ; dates de salons 2027 non vérifiées"
+    }
+  ]
+}
