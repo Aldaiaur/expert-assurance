@@ -1,5 +1,72 @@
 {
   "_table": "accidents",
-  "_source": "Le bloc « accidents types » (numéros ARIA, rapports BEA-TT) appartient au rapport_recherche.md, NON FOURNI. Aucun numéro ARIA ni rapport BEA-TT n'est inventé : la table restera vide tant que le fichier source n'est pas transmis. Les cas de la table scenarios sont des exercices FICTIFS, pas des accidents réels.",
-  "items": []
+  "_source": "rapport_recherche — bloc 4 (accidents types), statuts [V]/[NV] du rapport repris tels quels. Gabarit : date / lieu / exploitant / référence / déroulé / cause / facteurs aggravants / enseignements / lecture assurantielle.",
+  "items": [
+    {
+      "id": "acc-lubrizol", "titre": "Lubrizol / NL Logistique, Rouen (76), 26/09/2019", "base": "ARIA", "numero_base": "54441",
+      "resume": "Feu découvert à 2 h 39 ; plus de 3 ha touchés ; plan POLMAR ; 225 écoles fermées ; pas de victime grave. Chez NL Logistique, 4 252 t brûlées sur 9 050 t stockées ; total sur les deux sites : 9 505 t. CAUSE NON ÉTABLIE dans les sources consultées — ne pas en affirmer une.",
+      "lecture_assurantielle": "Sinistre multi-sites ; recours des voisins et des tiers ; RC environnementale ; PE de tiers.",
+      "statut": "V", "source_url": "https://www.aria.developpement-durable.gouv.fr/fiche_detaillee/54441_en/?lang=en", "date_verification": null,
+      "note": "Fiche de révision ARIA + rapport IGEDD n° 013014-01. Statut V attribué par le rapport de recherche (nov. 2026)."
+    },
+    {
+      "id": "acc-grand-couronne", "titre": "Bolloré Logistics, Grand-Couronne (76), 16/01/2023", "base": "ARIA", "numero_base": "60243",
+      "resume": "Feu dans une cellule de 6 000 m² stockant 12 250 batteries LMP usagées (propriété de Blue Solutions) en attente de diagnostic ; propagation à 3 cellules dont 70 000 pneus ; REPRISE DU FEU vers 3 h ; 892 t de batteries détruites. Site non autorisé à recevoir ces déchets dangereux : les deux sociétés mises en demeure et tenues « responsables solidairement ». Lithium à 200 000 µg/l dans la nappe ; batteries calcinées retirées en juillet 2025 ; enquête BEA-RI.",
+      "lecture_assurantielle": "Exclusions pour non-conformité réglementaire (formelles et limitées ?) ; frais de dépollution sur plusieurs années ; recours entre dépositaire et propriétaire des marchandises.",
+      "statut": "V", "source_url": "https://www.aria.developpement-durable.gouv.fr/fiche_detaillee/60243_en/?lang=en", "date_verification": null,
+      "note": "Divergences relevées par le rapport : 12 000 / 12 250 / 12 300 batteries ; départ à 16 h 20 (ARIA) ou 16 h 30-16 h 50 (presse). Cas central pour le scénario (c) et le lithium."
+    },
+    {
+      "id": "acc-viviez", "titre": "SNAM, Viviez (12), 17/02/2024", "base": "ARIA", "numero_base": "61711",
+      "resume": "Départ sur 3 palettes de batteries de téléphones ; bâtiment de 3 000 m² contenant environ 1 076 t ; l'alarme sonne à 13 h 59 mais LE GARDIENNAGE NE RÉPOND PAS ; confinement dans un rayon de 500 m ; feu maîtrisé à 20 h 10.",
+      "lecture_assurantielle": "Recours contre le prestataire de télésurveillance (référentiel APSAD R31).",
+      "statut": "V", "source_url": "https://www.aria.developpement-durable.gouv.fr/fiche_detaillee/61711_en/?lang=en", "date_verification": null,
+      "note": "Divergences relevées : 17/02 (ARIA) ou 14/02 (brochure IMPEL) ; 1 076 t (ARIA) ou 900 t (presse)."
+    },
+    {
+      "id": "acc-fillinges", "titre": "Citerne de propane, Fillinges (74), 20/01/2023", "base": "BEA-TT", "numero_base": "2023-03",
+      "resume": "Départ de feu dans le compartiment moteur « dont l'origine n'a pas pu être déterminée » selon le rapport final de septembre 2025 (le rapport annuel 2023, antérieur, parlait d'une origine « très vraisemblablement électrique ») → réservoir de gazole → gazole enflammé sous la citerne → rupture (BLEVE). Une personne blessée (ITT d'un mois) ; débris retrouvés jusqu'à environ un kilomètre ; trois recommandations et une invitation.",
+      "lecture_assurantielle": "RC automobile ; recours contre le constructeur ou le mainteneur. LE CAS LOCAL IDÉAL pour un entretien à Annecy.",
+      "statut": "V", "source_url": "https://www.bea-tt.developpement-durable.gouv.fr/IMG/pdf/beatt_2023-03__fillinges_rapport_final.pdf", "date_verification": null,
+      "note": "Exemple de prudence sur la cause : la formulation a été AFFAIBLIE entre le rapport annuel et le rapport final."
+    },
+    {
+      "id": "acc-a55", "titre": "Citerne essence/gazole, A55, Châteauneuf-les-Martigues (13), 07/08/2006", "base": "BEA-TT", "numero_base": "2006-010",
+      "resume": "Citerne renversée après un dépassement, puis éventrée et incendiée. Cause : dynamique du véhicule et excès de vitesse ; le chargement n'est pas en cause.",
+      "lecture_assurantielle": "Responsabilité du transporteur (conduite) ; pas de recours chargement.",
+      "statut": "V", "source_url": "https://www.bea-tt.developpement-durable.gouv.fr/IMG/pdf/Rapport_BEATT_2006_010_cle73791f.pdf", "date_verification": null, "note": null
+    },
+    {
+      "id": "acc-rn12", "titre": "Citerne de carburant, RN 12, Plounévez-Moëdec (22), 24/04/2012", "base": "BEA-TT", "numero_base": "2012-008",
+      "resume": "Citerne de 32 m³ contre un camion de chantier ; incendie. Cause : absence de réaction du conducteur à l'approche du chantier balisé.",
+      "lecture_assurantielle": "RC du transporteur ; infrastructure hors de cause.",
+      "statut": "V", "source_url": "https://www.bea-tt.developpement-durable.gouv.fr/IMG/pdf/Rapport_BEATT_2012_008.pdf", "date_verification": null, "note": null
+    },
+    {
+      "id": "acc-aria-50520", "titre": "Renversement d'une citerne de gazole (36 000 l, ~2 600 l répandus)", "base": "ARIA", "numero_base": "50520",
+      "resume": "Vitesse et trajectoire inadaptées, mouvement du liquide (ballant). Comparable direct du scénario (b).",
+      "lecture_assurantielle": "Dynamique du véhicule + taux de remplissage : répartition transporteur/remplisseur.",
+      "statut": "V", "source_url": "https://www.aria.developpement-durable.gouv.fr/", "date_verification": null, "note": "Date exacte [NV] selon le rapport."
+    },
+    {
+      "id": "acc-aria-37008", "titre": "Renversement de citerne — ballant dans une courbe", "base": "ARIA", "numero_base": "37008",
+      "resume": "Ballant du liquide dans une courbe. Comparable du scénario (b).",
+      "lecture_assurantielle": "Même grille d'analyse que ARIA 50520.",
+      "statut": "V", "source_url": "https://www.aria.developpement-durable.gouv.fr/", "date_verification": null, "note": "Date exacte [NV] selon le rapport."
+    },
+    {
+      "id": "acc-stats-barpi", "titre": "Statistiques BARPI — inventaire 2024 (publié le 29/07/2025)", "base": "autre", "numero_base": "Inventaire 2024",
+      "resume": "400 accidents et 829 incidents en installations classées ; aucun accident majeur Seveso ; 2 accidents mortels, tous deux liés à des travaux par point chaud ; environ 70 % des accidents avec pertes financières, 27 % avec conséquences humaines, 57 % environnementales ; Seveso : 57 accidents et 180 incidents ; secteur le plus accidentogène : l'agroalimentaire (record de feux de séchoirs à grains au T4). 2023 : incendie dans 45 % des accidents, défaillance matérielle dans 60 %. 126 accidents touchant le milieu aquatique en 2024 (140 en 2023, OIEau d'après ARIA).",
+      "lecture_assurantielle": "Chiffres à citer en entretien ; les points chauds tuent (permis de feu, FM DS 10-3).",
+      "statut": "V", "source_url": "https://www.aria.developpement-durable.gouv.fr/", "date_verification": null,
+      "note": "Inventaire des événements 2025 non consulté [NV] ; causes profondes identifiées dans ~40 % des cas en Seveso (source secondaire)."
+    },
+    {
+      "id": "acc-pistes-nv", "titre": "Fiches à compléter (références non vérifiées)", "base": "autre", "numero_base": "—",
+      "resume": "Pistes du rapport, numéros ARIA à retrouver : inondation de tannerie (lettre BARPI n° 86, nov. 2025) ; synthèse silos/ATEX 2015-2024 ; les 2 accidents mortels de 2024 (points chauds) ; lithium Sainte-Consorce (69, 15/04/2024, QE AN n° 18210) et Hwaseong (Corée, 24/06/2024) ; décolletage, traitement de surface, plasturgie, bris de machine, déchargement TMD (recherche ARIA par activité) ; navires X-Press Pearl (2021) et Maersk Honam (2018) ; carence de fournisseur Renesas Naka (2021).",
+      "lecture_assurantielle": "Compléter via la recherche ARIA par activité avant un entretien ciblé.",
+      "statut": "NV", "source_url": "https://www.aria.developpement-durable.gouv.fr/", "date_verification": null,
+      "note": "Aucun numéro ARIA inventé : à vérifier sur la base avant citation."
+    }
+  ]
 }

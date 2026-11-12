@@ -220,6 +220,165 @@
       ],
       "liens": { "referenceIds": [], "questionIds": [], "calculIds": [], "scenarioIds": [] },
       "statut": "V", "source_url": null, "date_verification": null, "note": "Partie 7.1 + Top 10 ; dates de salons 2027 non vérifiées"
+    },
+    {
+      "id": "nd-1-0", "numero": "1.0", "titre": "Noyau dur — Réformes 2024-2026 à citer", "theme": "noyau_dur",
+      "points": [
+        "Loi n° 2026-403 du 26/05/2026 (simplification de la vie économique), JO du 27/05/2026, art. 30 à 34 : modifications du Code des assurances, en vigueur au 28/05/2026 pour les dispositions non différées [V].",
+        "L.113-5-1 (art. 31) : information de l'assuré sur son droit à une contre-expertise à ses frais — en vigueur, sans décret [V].",
+        "L.121-18 (art. 30) : délais 6 mois / 2 mois / 1 mois / 21 jours, acomptes motivés, rapport transmis à l'assuré, contrôle ACPR — texte en vigueur, application suspendue à un décret selon les commentateurs ; publication du décret [NV].",
+        "L.113-15-2-1 : résiliation infra-annuelle de certains contrats dommages professionnels TPE/PME — « pas encore mobilisable » [V secondaire].",
+        "Décret 2024-1101 du 03/12/2024 : expertises CatNat sécheresse (indépendance, contenu du rapport, délais) [V].",
+        "ADR 2027 (en vigueur 01/01/2027, ADR 2025 utilisable jusqu'au 30/06/2027) : ONU 3563/3564, DS 410, formation partiellement à distance, nouvelles consignes écrites, eFTI au 09/07/2027 [V].",
+        "Convention de Montréal : fret de 22 à 26 DTS/kg au 28/12/2024 [V]. NFPA 921 : édition 2024 [V].",
+        "Phrase d'entretien : « L.113-5-1 et L.121-18 imposent un rapport lisible par l'assuré et solide face à un contre-expert, et obligent les cabinets à tenir les délais. »"
+      ],
+      "liens": { "referenceIds": ["ref-l113-5-1", "ref-l121-18", "ref-decret-2024-1101", "ref-adr-2027", "ref-montreal", "ref-nfpa-921"], "questionIds": ["q-loi-2026"], "calculIds": ["calc-echeancier"], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.0"
+    },
+    {
+      "id": "nd-1-1", "numero": "1.1", "titre": "Noyau dur — Lire une police d'entreprise", "theme": "noyau_dur",
+      "points": [
+        "Structure : conditions générales (cadre du produit) ; conditions particulières (risque, capitaux, franchises, LCI) — les CP priment sur les CG [NV] ; conventions spéciales (bris de machine, PE, facultés).",
+        "Ordre de lecture : assuré/activité/adresse → période et prime → définitions → événements garantis → exclusions (générales puis par garantie) → capitaux, LCI, sous-limites → franchises → modalités d'indemnisation (VN, vétusté) → règle proportionnelle et dérogations → obligations après sinistre, déchéances → prescription, expertise, tierce expertise.",
+        "Forme : exclusions, nullités et déchéances en caractères très apparents (L.112-4 [NV]) ; exclusions « formelles et limitées » (L.113-1) — une exclusion qui exige une interprétation est réputée non écrite (jurisprudence constante, arrêts à identifier sur Judilibre [NV]).",
+        "Preuve : l'assuré prouve que les conditions de la garantie sont réunies ; l'assureur prouve l'exclusion (art. 1353 C. civ. [NV]). Déchéance = manquement postérieur au sinistre ; retard de déclaration : préjudice à prouver (L.113-2).",
+        "Produits : multirisque entreprise (périls énumérés, TPE/PME) ; multirisque industrielle (périls nommés, PE, clauses APSAD, ETI) ; tous risques sauf (l'assureur prouve l'exclusion, grands comptes).",
+        "Garanties annexes usuelles [NV] : honoraires d'expert d'assuré ; démolition et déblais ; décontamination ; pertes indirectes ; recours des voisins et des tiers ; valeur à neuf.",
+        "Dérogations à la règle proportionnelle [NV] : tolérance (souvent 10 %), premier risque, abandon de RP (souvent après estimation par expert), indexation, déclaration révisable.",
+        "Question probable : « Une exclusion en petits caractères ? » → vérifier formelle, limitée, très apparente ; position technique — la décision de garantie appartient à l'assureur."
+      ],
+      "liens": { "referenceIds": ["ref-l113-1", "ref-l113-2", "ref-l121-5"], "questionIds": [], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.1"
+    },
+    {
+      "id": "nd-1-2", "numero": "1.2", "titre": "Noyau dur — Code des assurances", "theme": "noyau_dur",
+      "points": [
+        "L.113-1 exclusions ; L.113-2 déclarations et délais ; L.113-4 aggravation ; L.113-5-1 contre-expertise [V] ; L.113-8 nullité ; L.113-9 RP de prime ; L.114-1/L.114-2 prescription 2 ans, interrompue notamment par la désignation d'expert ou une LR ; L.121-1 principe indemnitaire ; L.121-5 RP de capitaux ; L.121-12 subrogation ; L.121-18 délais et transmission du rapport [V] ; L.122-1 et s. incendie ; L.124-3 action directe ; L.125-1 et s. CatNat.",
+        "NE PAS CONFONDRE : L.121-5 (capitaux) : indemnité = dommage × capital déclaré / valeur réelle ; L.113-9 (prime) : indemnité = dommage × prime payée / prime due.",
+        "Exemple : dommage 200 k€, capital déclaré 800 k€ / réel 1 000 k€ → 160 k€. Si prime 8 k€ au lieu de 10 k€ → 128 k€. Le cumul des deux règles est à vérifier en doctrine [NV].",
+        "Jurisprudence : chercher sur Judilibre (2e chambre civile) [NV]."
+      ],
+      "liens": { "referenceIds": ["ref-l113-1", "ref-l113-2", "ref-l113-4", "ref-l113-5-1", "ref-l113-8", "ref-l113-9", "ref-l114-1", "ref-l121-1", "ref-l121-5", "ref-l121-12", "ref-l121-18", "ref-l124-3", "ref-l125-1"], "questionIds": [], "calculIds": ["calc-rp-capitaux", "calc-rp-prime"], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.2 ; les articles français clés ont été contrôlés verbatim le 2026-11-10 (voir references)"
+    },
+    {
+      "id": "nd-1-3", "numero": "1.3", "titre": "Noyau dur — Chiffrage des dommages directs", "theme": "noyau_dur",
+      "points": [
+        "Définitions : valeur à neuf (coût de remplacement au jour du sinistre) ; vétusté ; valeur d'usage = VN − vétusté ; valeur vénale (hors terrain) ; indemnité immédiate = valeur d'usage ; indemnité différée (vétusté récupérable) si reconstruction dans le délai (souvent 2 ans), plafonnée souvent à 25 % ou 33 % de la VN [NV].",
+        "Ordre usuel (lire toujours la police) : dommage en VN → − vétusté → × coefficient de RP → − franchise → écrêtement au plafond → différé avec le même coefficient.",
+        "TVA : hors taxes si récupérable [NV] ; sauvetage en déduction ; découvert obligatoire éventuel.",
+        "Vétusté : PAS DE GRILLE LÉGALE — bâtiment 1-2 %/an, matériel industriel 5-10 %/an, informatique 15-33 %/an = ordres de grandeur NON SOURCÉS.",
+        "Erreurs de débutant : franchise avant la RP ; TVA récupérable indemnisée ; stock de produits finis au prix de vente (la marge relève de la PE).",
+        "EN : replacement cost, depreciation, actual cash value, salvage, underinsurance."
+      ],
+      "liens": { "referenceIds": ["ref-l121-5", "ref-l121-1"], "questionIds": ["q-stock-brule"], "calculIds": ["calc-chaine-indemnite"], "scenarioIds": ["scn-a"] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.3"
+    },
+    {
+      "id": "nd-1-4", "numero": "1.4", "titre": "Noyau dur — Perte d'exploitation", "theme": "noyau_dur",
+      "points": [
+        "MB assurée, méthode soustractive : CA + variation des stocks − charges variables ; méthode additive : résultat + frais généraux permanents [NV]. Taux de MB = MB / CA.",
+        "Période d'indemnisation 12-24 mois ; franchise en jours ouvrés ou en montant ; tendance (ajustement du CA de référence).",
+        "FSE admis dans la limite de la MB qu'ils sauvent ; économies de charges déduites ; RP en PE : MB déclarée / MB réelle ; extensions : carence fournisseurs/clients, impossibilité d'accès.",
+        "Formule : Indemnité = [(CA de référence ajusté − CA réalisé) × taux de MB + FSE − économies] × coeff RP − franchise, dans la limite du plafond. Exemple complet : scénario (a) → 1 379 927 €.",
+        "Ouvrage : Riley on Business Interruption Insurance (édition et prix [NV]).",
+        "EN : business interruption, gross profit, indemnity period, increased cost of working, contingent BI, denial of access."
+      ],
+      "liens": { "referenceIds": ["ref-l121-1"], "questionIds": ["q-tech-int-marge"], "calculIds": ["calc-pe"], "scenarioIds": ["scn-a"] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.4"
+    },
+    {
+      "id": "nd-1-5", "numero": "1.5", "titre": "Noyau dur — Procédure d'expertise", "theme": "noyau_dur",
+      "points": [
+        "Séquence : mandat → contact 24-72 h (usage [NV]) → mesures conservatoires et conservation des preuves → convocation contradictoire de toutes les parties et de leurs assureurs (sans contradictoire, constatations non opposables et recours fragilisé) → PV de constatations, scellés → sapiteur/laboratoire sous protocole accepté avant toute analyse destructive → rapport préliminaire avec provision → état de pertes → PV de chiffrage / lettre d'acceptation → rapport définitif → quittance → recours.",
+        "Cadres : amiable contradictoire (mandat) ; tierce expertise (clause de la police, un 3e expert départage) ; référé-expertise (art. 145 CPC, « motif légitime ») ; expertise judiciaire (expert inscrit, rapport au juge).",
+        "Expert d'assuré : rémunéré par l'assuré, souvent via la garantie « honoraires ». Convention IRSI : dégâts des eaux/incendie en immeuble sous seuils (a remplacé la CIDE-COP en 2018 [NV]) ; au-delà : droit commun et recours.",
+        "Statut : profession non réglementée hors automobile [NV] ; représentée par la FEDEA. L'expert reste indépendant de son mandant : IL CONSTATE ET ÉVALUE, IL NE DÉCIDE PAS.",
+        "Certifications : TEA (FEDEA — 3 ans d'expérience ; déc. 2024 : 59 candidats, 28 reçus ; préparation ≈ 5 700 € HT ; enregistrement RS 6657 expirait le 27/06/2026, renouvellement [NV]) ; EEA (CNPP Cert., ISO 17024 — 40 dossiers/an minimum, valable 6 ans, promotion 2025 : 45 certifiés) ; CESAM (40 missions/an pendant 3 ans).",
+        "À dire en entretien : « Objectif TEA à 3 ans, puis une spécialité EEA ou CESAM transport. »",
+        "EN : loss adjuster, public adjuster, joint survey, chain of custody, interim/final report, proof of loss, recovery."
+      ],
+      "liens": { "referenceIds": ["ref-cpc-145", "ref-l121-18", "ref-l113-5-1", "ref-iso-17024"], "questionIds": ["q-fond-convocation", "q-fond-scelles"], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.5"
+    },
+    {
+      "id": "nd-1-6", "numero": "1.6", "titre": "Noyau dur — Responsabilité civile", "theme": "noyau_dur",
+      "points": [
+        "DAB indemnise l'assuré pour ses biens ; la RC indemnise le tiers, qui dispose d'une action directe (L.124-3 [NV]).",
+        "Branches : RC exploitation, RC produits, RC professionnelle, RC atteinte à l'environnement.",
+        "Déclencheurs : base réclamation ou fait dommageable (L.124-5) ; garantie subséquente d'au moins 5 ans en base réclamation [NV].",
+        "Produits défectueux (C. civ. 1245 et s.) : responsabilité sans faute du producteur, prescription 3 ans, forclusion 10 ans [NV] ; directive (UE) 2024/2853 à transposer d'ici décembre 2026, statut en France [NV].",
+        "Mainteneur : responsabilité contractuelle (1231-1 C. civ.) ; obligation de moyens vs de résultat [NV].",
+        "Recours subrogatoire : toujours vérifier les clauses de renonciation à recours (baux, contrats de prestation).",
+        "EN : general/products liability, PI/E&O, EIL, claims-made vs occurrence, waiver of subrogation."
+      ],
+      "liens": { "referenceIds": ["ref-l124-3", "ref-cciv-1245", "ref-l121-12"], "questionIds": [], "calculIds": [], "scenarioIds": ["scn-a"] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.6"
+    },
+    {
+      "id": "nd-1-7", "numero": "1.7", "titre": "Noyau dur — Transport (la niche)", "theme": "noyau_dur",
+      "points": [
+        "Contrat type général (décret 2017-461, art. 22) [V] : <3 t → 33 €/kg, 1 000 €/colis ; ≥3 t → 20 €/kg, 3 200 €/t ; supplétif ; déclaration de valeur écrite moyennant prix ; UTI 2 875 € (source secondaire) ; 9 contrats types routiers, plafonds propres [NV].",
+        "Code de commerce [NV] : L.132-5/6 commissionnaire garant ; L.133-1 responsabilité du voiturier ; L.133-3 protestation 3 jours ; L.133-6 prescription 1 an ; L.133-8 seule la faute inexcusable fait sauter les plafonds.",
+        "International : CMR art. 23 (8,33 DTS/kg), 17 (exonérations), 29 (dol), 30 (réserves 7 jours non apparent), 32 (1 an) ; La Haye-Visby 666,67 DTS/colis ou 2 DTS/kg ; Montréal 26 DTS/kg [V].",
+        "Incoterms 2020 [NV] : CPT/CIP risque au premier transporteur ; FOB/CFR/CIF à bord ; D-terms à destination ; CIP impose ICC (A), CIF seulement ICC (C).",
+        "Facultés : police française « tous risques / FAP sauf » ; ICC A/B/C ; exclusions ICC (A) : emballage 4.3, vice propre 4.4, retard 4.5 [NV] ; avarie commune (York-Anvers) ; commissaire d'avaries ; typologie : casse, mouille, vol, chaîne du froid, désarrimage, marchandises dangereuses non déclarées.",
+        "ADR (numéros [NV]) : 1.4 obligations des intervenants ; 1.8.3.6 rapport d'accident du conseiller ; 1.8.5 déclaration d'événement.",
+        "DIFFÉRENCIATEUR : croiser la chaîne ADR (qui a rempli, chargé, arrimé ?) avec la chaîne contractuelle."
+      ],
+      "liens": { "referenceIds": ["ref-contrat-type-general", "ref-cmr", "ref-hague-visby", "ref-montreal", "ref-l133-3-ccom", "ref-l133-6-ccom", "ref-l133-8-ccom", "ref-l132-5-6-ccom", "ref-adr-1-4", "ref-adr-1-8-3", "ref-york-anvers"], "questionIds": ["q-palette-cassee", "qf-12"], "calculIds": ["calc-plafonds-transport", "calc-echeancier"], "scenarioIds": ["scn-b", "scn-c"] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.7"
+    },
+    {
+      "id": "nd-1-8", "numero": "1.8", "titre": "Noyau dur — Incendie : recherche des causes", "theme": "noyau_dur",
+      "points": [
+        "NFPA 921 éd. 2024 [V], méthode scientifique : définir le problème → collecter puis analyser les données → hypothèses testées par déduction → hypothèse finale. Outils : figures de feu, zone d'origine, arc mapping. La « negative corpus » est désapprouvée [NV formulation].",
+        "Accès : lecture gratuite sur nfpa.org (compte requis) ; PDF payant inutile.",
+        "RCCI en France : formation CNPP (attestation CFPA Europe possible au module 2) [V].",
+        "Statistiques : 2024, les 2 accidents mortels en ICPE liés à des travaux par point chaud [V secondaire] ; 2023 : incendie dans 45 % des accidents, défaillance matérielle dans 60 % [V].",
+        "Permis de feu : analyse préalable, éloignement des combustibles, extinction, surveillance après travaux (souvent 1-2 h [NV]) ; FM DS 10-3 [V].",
+        "Lithium : emballement thermique → gaz inflammables/toxiques → propagation → RÉ-INFLAMMATION (Grand-Couronne : reprise vers 3 h [V]) ; FM DS 7-112 (oct. 2024), 8-1 §2.4.2, 5-33 ; état de charge 30-60 %, sprinkleurs en rack pour batteries usagées (sources secondaires).",
+        "EN : origin and cause, fire patterns, arc mapping, hot work permit, fire watch, thermal runaway."
+      ],
+      "liens": { "referenceIds": ["ref-nfpa-921", "ref-fm-datasheets"], "questionIds": ["q-fond-cause-electrique", "q-rcci"], "calculIds": [], "scenarioIds": ["scn-a", "scn-c"] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.8"
+    },
+    {
+      "id": "nd-1-9", "numero": "1.9", "titre": "Noyau dur — Environnement", "theme": "noyau_dur",
+      "points": [
+        "Assurpol : statut actuel non vérifié [NV] — ne citer aucun chiffre.",
+        "LRE (C. env. L.160-1 et s. [NV]) : régime administratif mis en œuvre par le préfet ; réparation primaire, complémentaire, compensatoire.",
+        "Préjudice écologique (C. civ. 1246 à 1252 [NV]) : réparation en nature d'abord.",
+        "Eaux d'extinction : rétention dimensionnée selon le document APSAD D9A [NV] ; coûts de pompage et de traitement.",
+        "Acteurs : SDIS, préfet, DREAL (ICPE), DDT(M)/police de l'eau, OFB, ARS, maire."
+      ],
+      "liens": { "referenceIds": ["ref-cenv-l160-1", "ref-cciv-1246"], "questionIds": [], "calculIds": [], "scenarioIds": ["scn-b"] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.9"
+    },
+    {
+      "id": "nd-1-10", "numero": "1.10", "titre": "Noyau dur — Risk engineering", "theme": "noyau_dur",
+      "points": [
+        "COPE : Construction, Occupancy, Protection, Exposure.",
+        "Scénarios de sinistre maximal (définitions variables selon les assureurs [NV]) : SMP/EML (protections passives) ; PML (protections actives en service) ; MFL (protections actives en défaut) ; NLE (fonctionnement normal). TOUJOURS demander « selon quelle définition maison ? ».",
+        "APSAD : R1 (07/10/2025), R2, R4-R8, R11, R12, R15-R17, R31, D19/D20/D32 ; système R/N/Q (Q18 électricité, Q19 thermographie).",
+        "FM Data Sheets : 8-1, 8-9, 7-112, 5-33, 10-3, 10-7, 2-81 (Red Tag), 3-26, 10-1.",
+        "ICPE 1510 : arrêté du 11/04/2017 modifié [NV]. Leçon de Grand-Couronne : site non autorisé à recevoir des batteries usagées classées déchets dangereux [V presse].",
+        "Plan d'un risk survey report : executive summary → COPE → fire protection → special hazards → management programs → natural hazards → PML/MFL et PE → recommendations → appendices."
+      ],
+      "liens": { "referenceIds": ["ref-apsad-r1", "ref-fm-datasheets", "ref-icpe-1510"], "questionIds": ["q-tech-conf-eml", "q-en-cope"], "calculIds": [], "scenarioIds": ["scn-c"] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.10"
+    },
+    {
+      "id": "nd-1-11", "numero": "1.11", "titre": "Noyau dur — Due diligence EHS", "theme": "noyau_dur",
+      "points": [
+        "ASTM E1527-21 : Phase I, identification des Recognized Environmental Conditions [NV].",
+        "NF X31-620 : codes de mission A100, A110, A200… [NV].",
+        "Red flags : titre ICPE inadéquat, cuves enterrées, traitement de surface (chrome VI, solvants chlorés), PFAS, amiante, mises en demeure.",
+        "Traduction contractuelle : garantie de passif, séquestre, indemnité spécifique, assurance pollution legal liability."
+      ],
+      "liens": { "referenceIds": ["ref-astm-e1527", "ref-nfx31-620"], "questionIds": ["q-dd-phase1"], "calculIds": [], "scenarioIds": [] },
+      "statut": "V", "source_url": null, "date_verification": null, "note": "rapport_recherche bloc 1.11"
     }
   ]
 }

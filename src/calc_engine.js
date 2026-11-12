@@ -20,7 +20,9 @@
       return { coeff: round2(coeff), indemnite: round2(Math.min(dommage, dommage * coeff)) };
     },
 
-    /** Chaîne VàN → vétusté → RP → franchise → plafond → différé. */
+    /** Chaîne VàN → vétusté → RP → franchise → plafond → différé.
+        Le rachat de vétusté (différé) est plafonné en % de la VALEUR À NEUF
+        (25 % ou 33 % selon la police — pratique [NV], rapport bloc 1.3/2.4). */
     chaineIndemnite({ dommage_van, taux_vetuste, declare, reel, franchise, plafond, taux_rachat_max }) {
       const tr = (taux_rachat_max == null) ? 0.25 : taux_rachat_max;
       const vetuste = dommage_van * taux_vetuste;
@@ -28,20 +30,31 @@
       const coeff = reel > 0 ? Math.min(1, declare / reel) : 1;
       let immediat = Math.max(0, vd * coeff - (franchise || 0));
       if (plafond != null && plafond > 0) immediat = Math.min(immediat, plafond);
-      const differe = Math.min(vetuste, tr * vd) * coeff;
+      const differe = Math.min(vetuste, tr * dommage_van) * coeff;
       return {
         vetuste: round2(vetuste), valeur_vetuste_deduite: round2(vd), coeff: round2(coeff),
         immediat: round2(immediat), differe: round2(differe),
       };
     },
 
-    /** Perte d'exploitation (marge brute assurée). */
-    pe({ baisse_ca, taux_marge, frais_supp, perte_evitee, economies }) {
-      const margePerdue = baisse_ca * taux_marge;
+    /** Perte d'exploitation complète (rapport bloc 1.4) :
+        [(baisse de CA × tendance) × taux de MB + FSE retenus − économies]
+        × coeff RP (MB déclarée / MB réelle) − franchise (montant, ou jours
+        ouvrés de MB sur une base de 250 jours/an). */
+    pe({ baisse_ca, taux_marge, frais_supp, perte_evitee, economies,
+         tendance, mb_declaree, mb_reelle, franchise_pe, mb_annuelle, franchise_jours }) {
+      const t = (tendance == null) ? 1 : tendance;
+      const margePerdue = baisse_ca * t * taux_marge;
       const fraisRetenus = Math.min(frais_supp || 0, perte_evitee || 0);
+      const sousTotal = margePerdue + fraisRetenus - (economies || 0);
+      const coeff = (mb_declaree && mb_reelle) ? Math.min(1, mb_declaree / mb_reelle) : 1;
+      let franchise = franchise_pe || 0;
+      if (!franchise && mb_annuelle && franchise_jours) franchise = (mb_annuelle / 250) * franchise_jours;
+      const perte = Math.max(0, sousTotal * coeff - franchise);
       return {
         marge_perdue: round2(margePerdue), frais_retenus: round2(fraisRetenus),
-        perte: round2(margePerdue + fraisRetenus - (economies || 0)),
+        sous_total: round2(sousTotal), coeff_rp: round2(coeff), franchise: round2(franchise),
+        perte: round2(perte),
       };
     },
 

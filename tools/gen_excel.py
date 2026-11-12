@@ -74,64 +74,78 @@ def _nom(wb, name, sheet_title, coord):
 
 # ------------------------------------------------------------- scénarios
 # Grille normalisée des paramètres chargés par le sélecteur (a)/(b)/(c).
-CHAMPS = [
-    ("desc", "Description du scénario", None, "texte"),
-    ("poste1_lib", "Poste 1 — libellé", None, "texte"),
-    ("poste1_van", "Poste 1 — dommage valeur à neuf (€)", EURO, "nombre"),
-    ("poste1_vet", "Poste 1 — taux de vétusté", "0.0%", "nombre"),
-    ("poste1_decl", "Poste 1 — capitaux déclarés (€)", EURO, "nombre"),
-    ("poste1_reel", "Poste 1 — valeur réelle (€)", EURO, "nombre"),
-    ("poste1_rp", "Poste 1 — règle proportionnelle (Oui/Non)", None, "texte"),
-    ("poste2_lib", "Poste 2 — libellé", None, "texte"),
-    ("poste2_van", "Poste 2 — dommage valeur à neuf (€)", EURO, "nombre"),
-    ("poste2_vet", "Poste 2 — taux de vétusté", "0.0%", "nombre"),
-    ("poste2_decl", "Poste 2 — capitaux déclarés (€)", EURO, "nombre"),
-    ("poste2_reel", "Poste 2 — valeur réelle (€)", EURO, "nombre"),
-    ("poste2_rp", "Poste 2 — règle proportionnelle (Oui/Non)", None, "texte"),
-    ("franchise", "Franchise (€)", EURO, "nombre"),
-    ("lci", "Plafond / LCI (€, 0 = sans)", EURO, "nombre"),
-    ("taux_rachat", "Rachat de vétusté plafonné à (en % de la VD)", "0.0%", "nombre"),
-    ("pe_baisse_ca", "PE — baisse de CA (€)", EURO, "nombre"),
-    ("pe_taux_marge", "PE — taux de marge brute assurée", "0.0%", "nombre"),
-    ("pe_frais", "PE — frais supplémentaires engagés (€)", EURO, "nombre"),
-    ("pe_evitee", "PE — perte évitée par ces frais (€)", EURO, "nombre"),
-    ("pe_eco", "PE — économies de charges (€)", EURO, "nombre"),
-    ("tr_regime", "Transport — régime", None, "texte"),
-    ("tr_poids", "Transport — poids brut (kg)", NUM, "nombre"),
-    ("tr_colis", "Transport — nombre de colis", "0", "nombre"),
-]
+def _poste(n):
+    return [
+        (f"poste{n}_lib", f"Poste {n} — libellé", None, "texte"),
+        (f"poste{n}_van", f"Poste {n} — dommage valeur à neuf (€)", EURO, "nombre"),
+        (f"poste{n}_vet", f"Poste {n} — taux de vétusté", "0.0%", "nombre"),
+        (f"poste{n}_decl", f"Poste {n} — capitaux déclarés (€)", EURO, "nombre"),
+        (f"poste{n}_reel", f"Poste {n} — valeur réelle (€)", EURO, "nombre"),
+        (f"poste{n}_rp", f"Poste {n} — règle proportionnelle (Oui/Non)", None, "texte"),
+    ]
+
+
+CHAMPS = (
+    [("desc", "Description du scénario", None, "texte")]
+    + _poste(1) + _poste(2) + _poste(3) + _poste(4)
+    + [
+        ("franchise", "Franchise dommages directs (€)", EURO, "nombre"),
+        ("lci", "Plafond / LCI (€, 0 = sans)", EURO, "nombre"),
+        ("taux_rachat", "Vétusté récupérable plafonnée à (en % de la VN)", "0.0%", "nombre"),
+        ("pe_baisse_ca", "PE — baisse de CA (€)", EURO, "nombre"),
+        ("pe_tendance", "PE — coefficient de tendance", NUM, "nombre"),
+        ("pe_taux_marge", "PE — taux de marge brute assurée", "0.0%", "nombre"),
+        ("pe_fse", "PE — frais supplémentaires engagés (€)", EURO, "nombre"),
+        ("pe_mb_sauvee", "PE — marge brute sauvée par les FSE (€)", EURO, "nombre"),
+        ("pe_eco", "PE — économies de charges (€)", EURO, "nombre"),
+        ("pe_mb_decl", "PE — marge brute déclarée (€, 0 = pas de RP)", EURO, "nombre"),
+        ("pe_mb_reelle", "PE — marge brute réelle (€)", EURO, "nombre"),
+        ("pe_mb_annuelle", "PE — marge brute annuelle (€, pour la franchise en jours)", EURO, "nombre"),
+        ("pe_franchise_jours", "PE — franchise (jours ouvrés, base 250 j/an)", "0", "nombre"),
+        ("tr_regime", "Transport — régime", None, "texte"),
+        ("tr_poids", "Transport — poids brut (kg)", NUM, "nombre"),
+        ("tr_colis", "Transport — nombre de colis", "0", "nombre"),
+    ]
+)
+
+def _vide(**kw):
+    base = {}
+    for n in (1, 2, 3, 4):
+        base.update({f"poste{n}_lib": "—", f"poste{n}_van": 0, f"poste{n}_vet": 0,
+                     f"poste{n}_decl": 0, f"poste{n}_reel": 0, f"poste{n}_rp": "Non"})
+    base.update({"franchise": 0, "lci": 0, "taux_rachat": 0.25,
+                 "pe_baisse_ca": 0, "pe_tendance": 1, "pe_taux_marge": 0, "pe_fse": 0,
+                 "pe_mb_sauvee": 0, "pe_eco": 0, "pe_mb_decl": 0, "pe_mb_reelle": 0,
+                 "pe_mb_annuelle": 0, "pe_franchise_jours": 0,
+                 "tr_regime": "(sans objet)", "tr_poids": 0, "tr_colis": 0})
+    base.update(kw)
+    return base
+
 
 SCN_VALS = {
-    "a": {
-        "desc": "FICTIF — Incendie d'un atelier de décolletage (vallée de l'Arve)",
-        "poste1_lib": "Matériel (tours multibroches)", "poste1_van": 1000000, "poste1_vet": 0.15,
-        "poste1_decl": 2000000, "poste1_reel": 2500000, "poste1_rp": "Oui",
-        "poste2_lib": "Bâtiment et stock (correctement déclarés)", "poste2_van": 500000, "poste2_vet": 0,
-        "poste2_decl": 0, "poste2_reel": 0, "poste2_rp": "Non",
-        "franchise": 10000, "lci": 0, "taux_rachat": 0.25,
-        "pe_baisse_ca": 1200000, "pe_taux_marge": 0.60, "pe_frais": 90000, "pe_evitee": 90000, "pe_eco": 30000,
-        "tr_regime": "(sans objet)", "tr_poids": 0, "tr_colis": 0,
-    },
-    "b": {
-        "desc": "FICTIF — Citerne TMD renversée : 8 m³ d'UN 1202 dans un torrent",
-        "poste1_lib": "Dépollution (fourchette probable, fictive)", "poste1_van": 520000, "poste1_vet": 0,
-        "poste1_decl": 0, "poste1_reel": 0, "poste1_rp": "Non",
-        "poste2_lib": "Marchandise (gazole, valeur fictive)", "poste2_van": 12000, "poste2_vet": 0,
-        "poste2_decl": 0, "poste2_reel": 0, "poste2_rp": "Non",
-        "franchise": 0, "lci": 0, "taux_rachat": 0.25,
-        "pe_baisse_ca": 0, "pe_taux_marge": 0, "pe_frais": 0, "pe_evitee": 0, "pe_eco": 0,
-        "tr_regime": "cmr", "tr_poids": 6800, "tr_colis": 1,
-    },
-    "c": {
-        "desc": "FICTIF — Incendie d'un entrepôt de batteries lithium",
-        "poste1_lib": "Bâtiment (sous-déclaré)", "poste1_van": 900000, "poste1_vet": 0.20,
-        "poste1_decl": 2800000, "poste1_reel": 3500000, "poste1_rp": "Oui",
-        "poste2_lib": "Stock de batteries (correctement déclaré)", "poste2_van": 1200000, "poste2_vet": 0,
-        "poste2_decl": 0, "poste2_reel": 0, "poste2_rp": "Non",
-        "franchise": 25000, "lci": 2000000, "taux_rachat": 0.25,
-        "pe_baisse_ca": 800000, "pe_taux_marge": 0.55, "pe_frais": 60000, "pe_evitee": 100000, "pe_eco": 20000,
-        "tr_regime": "ctg_3t_et_plus", "tr_poids": 0, "tr_colis": 0,
-    },
+    "a": _vide(
+        desc="FICTIF — Incendie d'un atelier de décolletage, Cluses (74) — scénario (a) du rapport",
+        poste1_lib="Bâtiment", poste1_van=900000, poste1_vet=0.25,
+        poste2_lib="Matériel (tour multibroche…)", poste2_van=1800000, poste2_vet=0.40,
+        poste2_decl=4000000, poste2_reel=5000000, poste2_rp="Oui",
+        poste3_lib="Marchandises (au prix de revient)", poste3_van=500000,
+        poste4_lib="Frais : déblais 120 k€ + décontamination 180 k€", poste4_van=300000,
+        franchise=10000,
+        pe_baisse_ca=2400000, pe_tendance=1.05, pe_taux_marge=0.55,
+        pe_fse=250000, pe_mb_sauvee=462000, pe_eco=60000,
+        pe_mb_decl=4000000, pe_mb_reelle=4400000, pe_mb_annuelle=4400000, pe_franchise_jours=3,
+    ),
+    "b": _vide(
+        desc="FICTIF — Citerne de 30 m³ d'UN 1202 renversée, affluent de l'Arve — scénario (b)",
+        poste1_lib="Dépollution : SUR DEVIS uniquement (aucun coût vérifié)",
+        poste2_lib="Marchandise (gazole)",
+        tr_regime="cmr", tr_poids=6800, tr_colis=1,
+    ),
+    "c": _vide(
+        desc="FICTIF — Batteries lithium UN 3480 vendues CIP, emballement chez le commissionnaire — scénario (c)",
+        poste1_lib="Marchandise : 20 palettes, 480 000 € (à chiffrer selon cause et couverture)",
+        tr_regime="cmr", tr_poids=8000, tr_colis=1,
+    ),
 }
 
 # Source affichée pour chaque paramètre réglementaire de 11_Paramètres.
@@ -372,69 +386,76 @@ def generate_methode(data: dict, out: Path) -> Path:
             widths=[34, 14, 10, 12, 13, 13, 13, 7, 9, 10, 12])
     dv_rp = DataValidation(type="list", formula1='"Oui,Non"', allow_blank=True)
     dd.add_data_validation(dv_rp)
-    # Lignes 3-4 : alimentées par les paramètres (scénario) ; lignes 5-7 : saisie libre
-    for i, pref in ((3, "P_poste1_"), (4, "P_poste2_")):
+    # Lignes 3-6 : alimentées par les paramètres (scénario) ; lignes 7-8 : saisie libre
+    for i, pref in ((3, "P_poste1_"), (4, "P_poste2_"), (5, "P_poste3_"), (6, "P_poste4_")):
         dd.cell(row=i, column=1, value=f"={pref}lib").fill = GRIS_FORMULE
         dd.cell(row=i, column=2, value=f"={pref}van").number_format = EURO
         dd.cell(row=i, column=3, value=f"={pref}vet").number_format = "0.0%"
         dd.cell(row=i, column=6, value=f"={pref}decl").number_format = EURO
         dd.cell(row=i, column=7, value=f"={pref}reel").number_format = EURO
         dd.cell(row=i, column=8, value=f"={pref}rp")
-    for i in range(5, 8):
+    for i in range(7, 9):
         _saisie(dd, f"A{i}")
         for col, fmt in (("B", EURO), ("C", "0.0%"), ("F", EURO), ("G", EURO)):
             _saisie(dd, f"{col}{i}", fmt=fmt)
         _saisie(dd, f"H{i}", "Non")
         dv_rp.add(dd[f"H{i}"])
-    for i in range(3, 8):
+    for i in range(3, 9):
         dd.cell(row=i, column=4, value=f'=IF($B{i}="","",$B{i}*$C{i})').number_format = EURO
         dd.cell(row=i, column=5, value=f'=IF($B{i}="","",$B{i}-$D{i})').number_format = EURO
         dd.cell(row=i, column=9, value=f'=IF($B{i}="","",IF(AND($H{i}="Oui",$G{i}>0),MIN(1,$F{i}/$G{i}),1))').number_format = "0.0%"
         dd.cell(row=i, column=10, value=f'=IF($B{i}="","",$E{i}*$I{i})').number_format = EURO
-        dd.cell(row=i, column=11, value=f'=IF($B{i}="","",MIN($D{i},P_taux_rachat*$E{i})*$I{i})').number_format = EURO
+        dd.cell(row=i, column=11, value=f'=IF($B{i}="","",MIN($D{i},P_taux_rachat*$B{i})*$I{i})').number_format = EURO
         for col in range(4, 12):
             dd.cell(row=i, column=col).fill = GRIS_FORMULE
-    dd["A9"] = "Totaux"; dd["A9"].font = F_GRAS
-    dd["J9"] = "=SUM(J3:J7)"; dd["K9"] = "=SUM(K3:K7)"
-    dd["A10"] = "Franchise (une fois, après RP — hypothèse à vérifier dans la police)"
-    dd["J10"] = "=-P_franchise"
-    dd["A11"] = "Indemnité immédiate avant plafond"; dd["J11"] = "=MAX(0,J9+J10)"
-    dd["A12"] = "Plafond / LCI"; dd["J12"] = '=IF(P_lci=0,"(sans)",P_lci)'
-    dd["A13"] = "INDEMNITÉ IMMÉDIATE"; dd["A13"].font = F_GRAS
-    dd["J13"] = "=IF(P_lci=0,J11,MIN(J11,P_lci))"
-    dd["A14"] = "INDEMNITÉ DIFFÉRÉE (sur justification des travaux)"; dd["A14"].font = F_GRAS
-    dd["J14"] = "=K9"
-    for coord in ("J9", "K9", "J10", "J11", "J13", "J14"):
+    dd["A10"] = "Totaux"; dd["A10"].font = F_GRAS
+    dd["J10"] = "=SUM(J3:J8)"; dd["K10"] = "=SUM(K3:K8)"
+    dd["A11"] = "Franchise (une fois, APRÈS la règle proportionnelle — ordre usuel, lire la police)"
+    dd["J11"] = "=-P_franchise"
+    dd["A12"] = "Indemnité immédiate avant plafond"; dd["J12"] = "=MAX(0,J10+J11)"
+    dd["A13"] = "Plafond / LCI"; dd["J13"] = '=IF(P_lci=0,"(sans)",P_lci)'
+    dd["A14"] = "INDEMNITÉ IMMÉDIATE"; dd["A14"].font = F_GRAS
+    dd["J14"] = "=IF(P_lci=0,J12,MIN(J12,P_lci))"
+    dd["A15"] = "INDEMNITÉ DIFFÉRÉE (vétusté récupérable, reconstruction dans le délai)"; dd["A15"].font = F_GRAS
+    dd["J15"] = "=K10"
+    for coord in ("J10", "K10", "J11", "J12", "J14", "J15"):
         dd[coord].number_format = EURO
         dd[coord].fill = GRIS_FORMULE
         dd[coord].font = F_GRAS
-    _nom(wb, "R_ImmTotal", dd.title, "$J$13")
-    _nom(wb, "R_DiffTotal", dd.title, "$J$14")
-    dd.cell(row=16, column=1, value="Piège (cas 1) : n'appliquer la RP qu'aux postes réellement sous-déclarés — jamais au bâtiment correctement déclaré.").font = F_PETIT
+    _nom(wb, "R_ImmTotal", dd.title, "$J$14")
+    _nom(wb, "R_DiffTotal", dd.title, "$J$15")
+    dd.cell(row=17, column=1, value="Différé plafonné en % de la VALEUR À NEUF (pratique [NV]). Stock de produits finis au prix de revient. RP seulement sur les postes sous-déclarés.").font = F_PETIT
     _bandeau_fictif(dd, 11)
 
     # ---------------- 7_PE
     pe = wb.create_sheet("7_PE")
     rows = [
         ("Baisse de chiffre d'affaires (€)", "=P_pe_baisse_ca", EURO),
-        ("Taux de marge brute assurée (CA − charges variables)", "=P_pe_taux_marge", "0.0%"),
-        ("Marge brute perdue", "=B3*B4", EURO),
-        ("Frais supplémentaires engagés", "=P_pe_frais", EURO),
-        ("Perte évitée par ces frais", "=P_pe_evitee", EURO),
-        ("Frais supplémentaires retenus (écrêtés à la perte évitée)", "=MIN(B6,B7)", EURO),
+        ("Coefficient de tendance", "=P_pe_tendance", NUM),
+        ("Taux de marge brute assurée", "=P_pe_taux_marge", "0.0%"),
+        ("Perte de marge brute (= B3 × B4 × B5)", "=B3*B4*B5", EURO),
+        ("Frais supplémentaires d'exploitation (FSE) engagés", "=P_pe_fse", EURO),
+        ("Marge brute sauvée par les FSE", "=P_pe_mb_sauvee", EURO),
+        ("FSE retenus (limite économique : min des deux)", "=MIN(B7,B8)", EURO),
         ("Économies de charges", "=P_pe_eco", EURO),
-        ("PERTE D'EXPLOITATION", "=B5+B8-B9", EURO),
+        ("Sous-total (= B6 + B9 − B10)", "=B6+B9-B10", EURO),
+        ("Marge brute déclarée", "=P_pe_mb_decl", EURO),
+        ("Marge brute réelle", "=P_pe_mb_reelle", EURO),
+        ("Coefficient de règle proportionnelle PE", "=IF(B13=0,1,MIN(1,B12/B13))", "0.00%"),
+        ("Après règle proportionnelle (= B11 × B14)", "=B11*B14", EURO),
+        ("Franchise (jours ouvrés × MB annuelle / 250)", "=P_pe_mb_annuelle/250*P_pe_franchise_jours", EURO),
+        ("PERTE D'EXPLOITATION", "=MAX(0,B15-B16)", EURO),
     ]
-    _entete(pe, 2, ["Élément", "Valeur"], widths=[54, 18])
+    _entete(pe, 2, ["Élément", "Valeur"], widths=[56, 18])
     for i, (lab, f, fmt) in enumerate(rows, start=3):
         pe.cell(row=i, column=1, value=lab).alignment = WRAP
         c = pe.cell(row=i, column=2, value=f)
         c.number_format = fmt
         c.fill = GRIS_FORMULE
-    pe["A10"].font = F_GRAS
-    pe["B10"].font = F_GRAS
-    _nom(wb, "R_PE", pe.title, "$B$10")
-    pe.cell(row=12, column=1, value="Marge brute ASSURÉE = CA − charges variables (≠ marge comptable). Vérifier période d'indemnisation et carence dans la police.").font = F_PETIT
+    pe["A17"].font = F_GRAS
+    pe["B17"].font = F_GRAS
+    _nom(wb, "R_PE", pe.title, "$B$17")
+    pe.cell(row=19, column=1, value="MB assurée (soustractive) = CA + variation des stocks − charges variables (≠ marge comptable). FSE admis dans la limite de la MB sauvée. Franchise en jours ouvrés sur une base de 250 j/an (pratique [NV]). Vérifier période d'indemnisation et carence dans la police.").font = F_PETIT
     _bandeau_fictif(pe, 2)
 
     # ---------------- 8_Recours

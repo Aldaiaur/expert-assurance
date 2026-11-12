@@ -43,10 +43,11 @@ def test_recalcul_sans_erreur_et_scenario_a(data, tmp_path_factory):
     nb_err = sum(1 for ws in wb for row in ws.iter_rows() for c in row
                  if isinstance(c.value, str) and c.value.startswith("#"))
     assert nb_err == 0
-    # Scénario (a) pré-chargé
-    assert wb["6_DD"]["J13"].value == 1170000
-    assert wb["6_DD"]["J14"].value == 120000
-    assert wb["7_PE"]["B10"].value == 780000
+    # Scénario (a) du rapport (bloc 2.4), pré-chargé : 2 329 000 / 585 000 / 1 379 927
+    assert wb["6_DD"]["J14"].value == 2329000
+    assert wb["6_DD"]["J15"].value == 585000
+    assert wb["7_PE"]["B17"].value == pytest.approx(1379927.27, abs=0.01)
+    assert round(wb["7_PE"]["B17"].value) == 1379927
 
 
 @pytest.mark.skipif(SOFFICE is None, reason="LibreOffice absent")
@@ -60,11 +61,12 @@ def test_identite_app_excel_cas_acceptation(data, tmp_path_factory):
     saisies = {
         "poste1_lib": "Bâtiment (cas d'acceptation)", "poste1_van": 900000, "poste1_vet": 0.20,
         "poste1_decl": 3000000, "poste1_reel": 3600000, "poste1_rp": "Oui",
-        "poste2_lib": "-", "poste2_van": 0, "poste2_vet": 0, "poste2_decl": 0,
-        "poste2_reel": 0, "poste2_rp": "Non",
+        "poste2_lib": "-", "poste2_van": 0, "poste2_rp": "Non",
+        "poste3_lib": "-", "poste3_van": 0, "poste4_lib": "-", "poste4_van": 0,
         "franchise": 10000, "lci": 0, "taux_rachat": 0.25,
-        "pe_baisse_ca": 1200000, "pe_taux_marge": 0.60, "pe_frais": 0,
-        "pe_evitee": 0, "pe_eco": 30000,
+        "pe_baisse_ca": 1200000, "pe_tendance": 1, "pe_taux_marge": 0.60, "pe_fse": 0,
+        "pe_mb_sauvee": 0, "pe_eco": 30000, "pe_mb_decl": 0, "pe_mb_reelle": 0,
+        "pe_mb_annuelle": 0, "pe_franchise_jours": 0,
         "tr_regime": "cmr", "tr_poids": 8000, "tr_colis": 1,
     }
     for k, v in saisies.items():
@@ -73,15 +75,15 @@ def test_identite_app_excel_cas_acceptation(data, tmp_path_factory):
     wb.save(mod)
     out = recalc(mod, tmp / "recalc")
     wb2 = load_workbook(out, data_only=True)
-    imm = wb2["6_DD"]["J13"].value
-    dif = wb2["6_DD"]["J14"].value
-    pe = wb2["7_PE"]["B10"].value
+    imm = wb2["6_DD"]["J14"].value
+    dif = wb2["6_DD"]["J15"].value
+    pe = wb2["7_PE"]["B17"].value
     cmr = wb2["8_Recours"]["B12"].value
 
     moteur = run_engine("calc-chaine-indemnite", {
         "dommage_van": 900000, "taux_vetuste": 0.20, "declare": 3000000,
         "reel": 3600000, "franchise": 10000, "plafond": None, "taux_rachat_max": 0.25})
-    moteur_pe = run_engine("calc-pe", {"baisse_ca": 1200000, "taux_marge": 0.60,
+    moteur_pe = run_engine("calc-pe", {"baisse_ca": 1200000, "tendance": 1, "taux_marge": 0.60,
                                        "frais_supp": 0, "perte_evitee": 0, "economies": 30000})
     moteur_cmr = run_engine("calc-plafonds-transport", {"regime": "cmr", "poids_kg": 8000, "nb_colis": 1})
 
