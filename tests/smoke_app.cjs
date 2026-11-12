@@ -17,7 +17,7 @@ const { chromium } = require('playwright');
   await page.goto('file://' + appPath, { waitUntil: 'load' });
   await page.waitForTimeout(300);
 
-  const vues = ['fiches', 'references', 'calculs', 'methode', 'entretien', 'quiz', 'lexique',
+  const vues = ['systeme', 'fiches', 'references', 'calculs', 'methode', 'entretien', 'quiz', 'lexique',
     'trames', 'cabinets', 'candidatures', 'ressources', 'averifier', 'donnees', 'accueil'];
   for (const v of vues) {
     await page.evaluate((vv) => { location.hash = '#/' + vv; }, v);
@@ -25,6 +25,13 @@ const { chromium } = require('playwright');
     const txt = await page.evaluate(() => document.getElementById('vue').innerText.length);
     if (txt < 40) errors.push('vue vide: ' + v);
   }
+
+  await page.evaluate(() => { location.hash = '#/systeme'; });
+  await page.waitForTimeout(200);
+  const nbSvg = await page.evaluate(() => document.querySelectorAll('#vue .diagramme svg').length);
+  if (nbSvg !== 2) errors.push('onglet Système : ' + nbSvg + ' diagramme(s) au lieu de 2');
+  const nbActeurs = await page.evaluate(() => document.querySelectorAll('#vue table.acteurs tr').length - 1);
+  if (nbActeurs < 14) errors.push('onglet Système : ' + nbActeurs + ' acteurs');
 
   await page.evaluate(() => { location.hash = '#/scenario/scn-a'; });
   await page.waitForTimeout(150);

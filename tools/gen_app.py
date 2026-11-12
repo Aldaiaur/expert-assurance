@@ -23,7 +23,14 @@ def generate_app(root: Path, data: dict, perso: dict, out: Path) -> Path:
     engine = (src / "calc_engine.js").read_text(encoding="utf-8")
     appjs = (src / "app.js").read_text(encoding="utf-8")
 
+    templates = []
+    for svg in sorted((root / "data" / "diagrams").glob("*.svg")):
+        contenu = svg.read_text(encoding="utf-8")
+        contenu = contenu[contenu.index("<svg"):]  # retire le commentaire d'empreinte
+        templates.append(f'<template id="tpl-{svg.stem}">{contenu}</template>')
+
     html = (shell
+            .replace("__SVG_TEMPLATES__", "\n".join(templates))
             .replace("__DATE__", dt.date.today().isoformat())
             .replace("__CSS__", css)
             .replace("__CALC_ENGINE__", engine.replace("</", "<\\/"))

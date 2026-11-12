@@ -75,10 +75,30 @@ L.121-18 — voir `data/reference/a_verifier.json`.
    le navigateur (localStorage) : **une régénération ne les touche pas**.
    Sauvegarde/restaure-les via « Mes données » (export/import JSON).
 
-**Il manque `rapport_recherche.md`** (noyau dur 1.0-1.11, 12 étapes d'origine,
-accidents ARIA, scénario (a) original : 2 329 000 / 585 000 / 1 379 927).
-La structure est prête à l'accueillir : fiches → `fiches.json` (renuméroter),
-accidents → `accidents.json` (schéma prêt, table vide), etc.
+**Rapport de recherche intégré** (novembre 2026) : fiches du noyau dur 1.0 à 1.11,
+accidents vérifiés (ARIA 54441, 60243, 61711, 50520, 37008 ; BEA-TT 2023-03,
+2006-010, 2012-008), scénario (a) exact — 2 329 000 € immédiat, 585 000 € différé,
+1 379 927 € de PE —, identique dans l'app, dans Excel et dans les tests.
+
+## Onglet « Système » : modèle systémique du métier
+
+Table `data/reference/modele_systemique.json` : frontière, 14 acteurs, flux en
+4 couches, stocks et délais, 8 boucles (R/B), tensions, cycle de vie en 12
+étapes, perturbations, leviers, cas test, limites, version orale de 3 minutes.
+Chaque élément est marqué **[S]** (sources), **[C]** (connaissance à vérifier)
+ou **[H]** (hypothèse de modélisation).
+
+Les deux diagrammes Mermaid sont rendus **une fois** en SVG versionnés
+(`data/diagrams/`) ; l'app les embarque, sans Mermaid ni réseau. Si tu modifies
+une source Mermaid :
+
+```bash
+npm install --prefix tools/.mermaid mermaid@11.4.1   # une fois (dossier ignoré par git)
+node tools/render_diagrams.cjs
+```
+
+Un test refuse un SVG périmé (empreinte SHA-256), et un autre vérifie que la
+polarité de chaque boucle (R/B) correspond au nombre de liens négatifs du graphe.
 
 ## Mobile : file:// et variante PWA
 

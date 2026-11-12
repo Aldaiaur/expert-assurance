@@ -132,7 +132,15 @@ dialog { border: 1px solid var(--line); border-radius: var(--radius); background
 
 footer.app { text-align: center; color: var(--muted); font-size: .8rem; padding: 1rem; }
 
+.diagramme { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; padding: .4rem; margin: .5rem 0; }
+.diagramme svg { display: block; min-width: 820px; height: auto; }
+table.acteurs td { min-width: 9rem; font-size: .85rem; }
+.boucle { border-left: 3px solid var(--line); padding-left: .7rem; margin: .8rem 0; }
+details > summary { cursor: pointer; color: var(--muted); }
+
 @media print {
+  .diagramme { overflow: visible; border: none; }
+  .diagramme svg { min-width: 0; width: 100%; }
   @page { size: A4 portrait; margin: 14mm; }
   header.topbar, nav.tabs, .toolbar, .filters, button, .no-print, footer.app { display: none !important; }
   body { background: #fff; color: #000; font-size: 11pt; }

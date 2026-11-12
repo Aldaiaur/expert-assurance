@@ -26,7 +26,7 @@ SCHEMA_PATH = ROOT / "schema" / "tables.schema.json"
 REFERENCE_TABLES = [
     "fiches", "references", "calculs", "etapes_methode", "pieces", "scenarios",
     "trames", "grilles_entretien", "questions", "accidents", "ressources",
-    "cabinets", "lexique_fr_en", "a_verifier",
+    "cabinets", "lexique_fr_en", "a_verifier", "modele_systemique",
 ]
 PERSONAL_TABLES = ["star", "candidatures", "notes", "progression"]
 
@@ -110,6 +110,13 @@ def validate(data: dict, perso: dict) -> list[str]:
         for key, rc in s.get("resultats_calcules", {}).items():
             if rc["calcul"] not in calc_ids:
                 errors.append(f"scenarios/{s['id']}/{key} : calcul inconnu → {rc['calcul']}")
+
+    # Modèle systémique : boucles citées par les perturbations
+    boucle_ids = {i["id"] for i in data["modele_systemique"]["items"] if i["type"] == "boucle"}
+    for it in data["modele_systemique"]["items"]:
+        for bid in it.get("boucles", []):
+            if bid not in boucle_ids:
+                errors.append(f"modele_systemique/{it['id']} : boucle inconnue → {bid}")
 
     # Ordres des 12 étapes
     ordres = sorted(e["ordre"] for e in data["etapes_methode"]["items"])

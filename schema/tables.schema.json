@@ -3,120 +3,1064 @@
   "$id": "expert-assurance/tables.schema.json",
   "title": "Schémas des tables de la base expert assurance",
   "$defs": {
-    "statut": { "enum": ["V", "NV", "ordre_de_grandeur", "fictif"] },
+    "statut": {
+      "enum": [
+        "V",
+        "NV",
+        "ordre_de_grandeur",
+        "fictif"
+      ]
+    },
     "enveloppe": {
       "type": "object",
-      "required": ["id", "statut", "source_url", "date_verification", "note"],
+      "required": [
+        "id",
+        "statut",
+        "source_url",
+        "date_verification",
+        "note"
+      ],
       "properties": {
-        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]+$" },
-        "statut": { "$ref": "#/$defs/statut" },
-        "source_url": { "type": ["string", "null"] },
-        "date_verification": { "type": ["string", "null"], "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
-        "note": { "type": ["string", "null"] }
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]+$"
+        },
+        "statut": {
+          "$ref": "#/$defs/statut"
+        },
+        "source_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "date_verification": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
     "table": {
       "type": "object",
-      "required": ["_table", "items"],
+      "required": [
+        "_table",
+        "items"
+      ],
       "properties": {
-        "_table": { "type": "string" },
-        "items": { "type": "array" }
+        "_table": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array"
+        }
       }
     },
-    "fiche": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["numero", "titre", "theme", "points", "liens"], "properties": {
-      "numero": { "type": "string" }, "titre": { "type": "string" }, "theme": { "type": "string" },
-      "points": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-      "liens": { "type": "object", "properties": {
-        "referenceIds": { "type": "array", "items": { "type": "string" } },
-        "questionIds": { "type": "array", "items": { "type": "string" } },
-        "calculIds": { "type": "array", "items": { "type": "string" } },
-        "scenarioIds": { "type": "array", "items": { "type": "string" } } } } } } ] },
-    "reference": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["type", "code", "intitule", "resume"], "properties": {
-      "type": { "enum": ["article_loi", "convention", "norme", "referentiel", "directive", "rubrique_icpe", "texte_suisse"] },
-      "code": { "type": "string" }, "numero": { "type": ["string", "null"] },
-      "intitule": { "type": "string" }, "resume": { "type": "string" } } } ] },
-    "calcul": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["titre", "formule", "hypotheses", "base_juridique", "parametres", "vecteurs_test"], "properties": {
-      "titre": { "type": "string" }, "formule": { "type": "string" },
-      "hypotheses": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-      "base_juridique": { "type": "array", "items": { "type": "string" } },
-      "parametres": { "type": "array", "items": { "type": "object", "required": ["nom", "label", "type"] } },
-      "vecteurs_test": { "type": "array", "items": { "type": "object", "required": ["nom", "entrees", "attendu"] }, "minItems": 1 } } } ] },
-    "etape": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["ordre", "titre", "objectif", "actions", "pieceIds", "referenceIds", "calculIds"], "properties": {
-      "ordre": { "type": "integer", "minimum": 1, "maximum": 12 },
-      "titre": { "type": "string" }, "objectif": { "type": "string" },
-      "actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-      "pieges": { "type": "array", "items": { "type": "string" } },
-      "pieceIds": { "type": "array", "items": { "type": "string" } },
-      "referenceIds": { "type": "array", "items": { "type": "string" } },
-      "calculIds": { "type": "array", "items": { "type": "string" } } } } ] },
-    "piece": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["label", "categorie", "quand"], "properties": {
-      "label": { "type": "string" }, "categorie": { "enum": ["police", "technique", "comptable", "administratif", "transport"] }, "quand": { "type": "string" } } } ] },
-    "scenario": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["code", "marque", "titre", "resume", "donnees", "resultats_calcules", "deroule", "pieges"], "properties": {
-      "code": { "enum": ["a", "b", "c"] },
-      "marque": { "const": "FICTIF" },
-      "statut": { "const": "fictif" },
-      "titre": { "type": "string" }, "resume": { "type": "string" },
-      "donnees": { "type": "object", "additionalProperties": { "type": "object", "required": ["valeur", "origine"], "properties": { "origine": { "enum": ["dossier", "fictif-ajout"] } } } },
-      "resultats_calcules": { "type": "object", "additionalProperties": { "type": "object", "required": ["calcul", "entrees", "attendu"] } },
-      "deroule": { "type": "array", "items": { "type": "object", "required": ["etapeId", "contenu"] }, "minItems": 12, "maxItems": 12 },
-      "pieges": { "type": "array", "items": { "type": "string" } } } } ] },
-    "trame": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["categorie", "titre", "contenu"], "properties": {
-      "categorie": { "enum": ["rapport", "reunion", "langue", "pitch", "message", "checklist"] },
-      "titre": { "type": "string" }, "contenu": { "type": "array", "items": { "type": "string" }, "minItems": 1 } } } ] },
-    "grille": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["poste", "themes_evalues", "questionIds", "a_poser", "ce_qui_fait_recaler"], "properties": {
-      "poste": { "type": "string" },
-      "themes_evalues": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-      "questionIds": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-      "a_poser": { "type": "array", "items": { "type": "string" } },
-      "ce_qui_fait_recaler": { "type": "array", "items": { "type": "string" } } } } ] },
-    "question": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["type", "question", "reponse"], "properties": {
-      "type": { "enum": ["rh", "fond", "technique", "flash", "a_poser"] },
-      "niveau": { "enum": ["debutant", "intermediaire", "confirme", null] },
-      "question": { "type": "string" }, "reponse": { "type": "string" },
-      "teste": { "type": ["string", "null"] }, "a_eviter": { "type": ["string", "null"] } } } ] },
-    "accident": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["titre", "base", "numero_base", "resume"], "properties": {
-      "titre": { "type": "string" }, "base": { "enum": ["ARIA", "BEA-TT", "autre"] },
-      "numero_base": { "type": "string" }, "resume": { "type": "string" } } } ] },
-    "ressource": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["nom", "type", "url", "usage"], "properties": {
-      "nom": { "type": "string" }, "type": { "enum": ["juridique", "formation", "technique", "accidentologie", "emploi", "veille", "evenement"] },
-      "url": { "type": ["string", "null"] }, "usage": { "type": "string" } } } ] },
-    "cabinet": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["nom", "type", "bassin", "poste_vise", "canal", "priorite", "faits"], "properties": {
-      "nom": { "type": "string" },
-      "type": { "enum": ["cabinet_expertise", "assureur", "courtier", "conseil_dd", "organisme_controle", "bureau_ingenieurs", "eca"] },
-      "bassin": { "type": "string" }, "implantation": { "type": ["string", "null"] },
-      "poste_vise": { "type": "string" }, "canal": { "type": "string" },
-      "priorite": { "type": "integer" }, "faits": { "type": "string" } } } ] },
-    "entree_lexique": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["fr", "en", "categorie"], "properties": {
-      "fr": { "type": "string" }, "en": { "type": "string" },
-      "reference": { "type": ["string", "null"] },
-      "categorie": { "enum": ["assurance", "incendie", "transport", "ma", "suisse", "finance", "faux_amis", "erreur_c1"] } } } ] },
-    "entree_a_verifier": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["sujet", "detail", "source_primaire", "priorite"], "properties": {
-      "sujet": { "type": "string" }, "detail": { "type": "string" },
-      "source_primaire": { "type": ["string", "null"] }, "priorite": { "type": "integer", "minimum": 1, "maximum": 5 } } } ] },
-    "recit_star": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["titre", "situation", "tache", "action", "resultat", "tags"], "properties": {
-      "titre": { "type": "string" }, "situation": { "type": "string" }, "tache": { "type": "string" },
-      "action": { "type": "string" }, "resultat": { "type": "string" }, "chiffres": { "type": "string" },
-      "tags": { "type": "array", "items": { "type": "string" } } } } ] },
-    "candidature": { "allOf": [ { "$ref": "#/$defs/enveloppe" }, { "type": "object", "required": ["cible", "poste", "etape"], "properties": {
-      "cible": { "type": "string" }, "poste": { "type": "string" }, "etape": { "type": "string" },
-      "contacts": { "type": "array" }, "historique": { "type": "array" } } } ] }
+    "fiche": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "numero",
+            "titre",
+            "theme",
+            "points",
+            "liens"
+          ],
+          "properties": {
+            "numero": {
+              "type": "string"
+            },
+            "titre": {
+              "type": "string"
+            },
+            "theme": {
+              "type": "string"
+            },
+            "points": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "liens": {
+              "type": "object",
+              "properties": {
+                "referenceIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "questionIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "calculIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "scenarioIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "reference": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "code",
+            "intitule",
+            "resume"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "article_loi",
+                "convention",
+                "norme",
+                "referentiel",
+                "directive",
+                "rubrique_icpe",
+                "texte_suisse"
+              ]
+            },
+            "code": {
+              "type": "string"
+            },
+            "numero": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "intitule": {
+              "type": "string"
+            },
+            "resume": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "calcul": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "titre",
+            "formule",
+            "hypotheses",
+            "base_juridique",
+            "parametres",
+            "vecteurs_test"
+          ],
+          "properties": {
+            "titre": {
+              "type": "string"
+            },
+            "formule": {
+              "type": "string"
+            },
+            "hypotheses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "base_juridique": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "parametres": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "nom",
+                  "label",
+                  "type"
+                ]
+              }
+            },
+            "vecteurs_test": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "nom",
+                  "entrees",
+                  "attendu"
+                ]
+              },
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
+    "etape": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "ordre",
+            "titre",
+            "objectif",
+            "actions",
+            "pieceIds",
+            "referenceIds",
+            "calculIds"
+          ],
+          "properties": {
+            "ordre": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "titre": {
+              "type": "string"
+            },
+            "objectif": {
+              "type": "string"
+            },
+            "actions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "pieges": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "pieceIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "referenceIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "calculIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "piece": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "label",
+            "categorie",
+            "quand"
+          ],
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "categorie": {
+              "enum": [
+                "police",
+                "technique",
+                "comptable",
+                "administratif",
+                "transport"
+              ]
+            },
+            "quand": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "scenario": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "code",
+            "marque",
+            "titre",
+            "resume",
+            "donnees",
+            "resultats_calcules",
+            "deroule",
+            "pieges"
+          ],
+          "properties": {
+            "code": {
+              "enum": [
+                "a",
+                "b",
+                "c"
+              ]
+            },
+            "marque": {
+              "const": "FICTIF"
+            },
+            "statut": {
+              "const": "fictif"
+            },
+            "titre": {
+              "type": "string"
+            },
+            "resume": {
+              "type": "string"
+            },
+            "donnees": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "required": [
+                  "valeur",
+                  "origine"
+                ],
+                "properties": {
+                  "origine": {
+                    "enum": [
+                      "dossier",
+                      "fictif-ajout"
+                    ]
+                  }
+                }
+              }
+            },
+            "resultats_calcules": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "required": [
+                  "calcul",
+                  "entrees",
+                  "attendu"
+                ]
+              }
+            },
+            "deroule": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "etapeId",
+                  "contenu"
+                ]
+              },
+              "minItems": 12,
+              "maxItems": 12
+            },
+            "pieges": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "trame": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "categorie",
+            "titre",
+            "contenu"
+          ],
+          "properties": {
+            "categorie": {
+              "enum": [
+                "rapport",
+                "reunion",
+                "langue",
+                "pitch",
+                "message",
+                "checklist"
+              ]
+            },
+            "titre": {
+              "type": "string"
+            },
+            "contenu": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
+    "grille": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "poste",
+            "themes_evalues",
+            "questionIds",
+            "a_poser",
+            "ce_qui_fait_recaler"
+          ],
+          "properties": {
+            "poste": {
+              "type": "string"
+            },
+            "themes_evalues": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "questionIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "a_poser": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ce_qui_fait_recaler": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "question": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "question",
+            "reponse"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "rh",
+                "fond",
+                "technique",
+                "flash",
+                "a_poser"
+              ]
+            },
+            "niveau": {
+              "enum": [
+                "debutant",
+                "intermediaire",
+                "confirme",
+                null
+              ]
+            },
+            "question": {
+              "type": "string"
+            },
+            "reponse": {
+              "type": "string"
+            },
+            "teste": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "a_eviter": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "accident": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "titre",
+            "base",
+            "numero_base",
+            "resume"
+          ],
+          "properties": {
+            "titre": {
+              "type": "string"
+            },
+            "base": {
+              "enum": [
+                "ARIA",
+                "BEA-TT",
+                "autre"
+              ]
+            },
+            "numero_base": {
+              "type": "string"
+            },
+            "resume": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "ressource": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "nom",
+            "type",
+            "url",
+            "usage"
+          ],
+          "properties": {
+            "nom": {
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "juridique",
+                "formation",
+                "technique",
+                "accidentologie",
+                "emploi",
+                "veille",
+                "evenement"
+              ]
+            },
+            "url": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "usage": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "cabinet": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "nom",
+            "type",
+            "bassin",
+            "poste_vise",
+            "canal",
+            "priorite",
+            "faits"
+          ],
+          "properties": {
+            "nom": {
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "cabinet_expertise",
+                "assureur",
+                "courtier",
+                "conseil_dd",
+                "organisme_controle",
+                "bureau_ingenieurs",
+                "eca"
+              ]
+            },
+            "bassin": {
+              "type": "string"
+            },
+            "implantation": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "poste_vise": {
+              "type": "string"
+            },
+            "canal": {
+              "type": "string"
+            },
+            "priorite": {
+              "type": "integer"
+            },
+            "faits": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "entree_lexique": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "fr",
+            "en",
+            "categorie"
+          ],
+          "properties": {
+            "fr": {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            },
+            "reference": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "categorie": {
+              "enum": [
+                "assurance",
+                "incendie",
+                "transport",
+                "ma",
+                "suisse",
+                "finance",
+                "faux_amis",
+                "erreur_c1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "entree_a_verifier": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "sujet",
+            "detail",
+            "source_primaire",
+            "priorite"
+          ],
+          "properties": {
+            "sujet": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "source_primaire": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "priorite": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            }
+          }
+        }
+      ]
+    },
+    "recit_star": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "titre",
+            "situation",
+            "tache",
+            "action",
+            "resultat",
+            "tags"
+          ],
+          "properties": {
+            "titre": {
+              "type": "string"
+            },
+            "situation": {
+              "type": "string"
+            },
+            "tache": {
+              "type": "string"
+            },
+            "action": {
+              "type": "string"
+            },
+            "resultat": {
+              "type": "string"
+            },
+            "chiffres": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "candidature": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "cible",
+            "poste",
+            "etape"
+          ],
+          "properties": {
+            "cible": {
+              "type": "string"
+            },
+            "poste": {
+              "type": "string"
+            },
+            "etape": {
+              "type": "string"
+            },
+            "contacts": {
+              "type": "array"
+            },
+            "historique": {
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "element_systeme": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/enveloppe"
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "titre",
+            "marque"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "synthese",
+                "frontiere",
+                "acteur",
+                "flux",
+                "stock",
+                "boucle",
+                "tension",
+                "etape_cycle",
+                "perturbation",
+                "levier",
+                "cas_test",
+                "limite",
+                "question",
+                "oral",
+                "diagramme"
+              ]
+            },
+            "titre": {
+              "type": "string"
+            },
+            "marque": {
+              "enum": [
+                "S",
+                "C",
+                "H",
+                "mixte"
+              ]
+            },
+            "polarite": {
+              "enum": [
+                "R",
+                "B"
+              ]
+            },
+            "noeuds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 2
+            },
+            "sens": {
+              "enum": [
+                "valeur",
+                "echec"
+              ]
+            },
+            "boucles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "boucle"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "polarite",
+                  "chaine",
+                  "noeuds",
+                  "lecture",
+                  "exemple"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "acteur"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "objectif",
+                  "crainte",
+                  "indicateur",
+                  "lien_expert"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "etape_cycle"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "ordre",
+                  "moteur",
+                  "livrable",
+                  "rupture"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "diagramme"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "mermaid",
+                  "legende"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "tension"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "contenu",
+                  "exemple"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "levier"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "sens",
+                  "contenu",
+                  "exemple"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
   },
   "tables": {
-    "fiches": { "items_schema": "fiche" },
-    "references": { "items_schema": "reference" },
-    "calculs": { "items_schema": "calcul" },
-    "etapes_methode": { "items_schema": "etape" },
-    "pieces": { "items_schema": "piece" },
-    "scenarios": { "items_schema": "scenario" },
-    "trames": { "items_schema": "trame" },
-    "grilles_entretien": { "items_schema": "grille" },
-    "questions": { "items_schema": "question" },
-    "accidents": { "items_schema": "accident" },
-    "ressources": { "items_schema": "ressource" },
-    "cabinets": { "items_schema": "cabinet" },
-    "lexique_fr_en": { "items_schema": "entree_lexique" },
-    "a_verifier": { "items_schema": "entree_a_verifier" },
-    "star": { "items_schema": "recit_star" },
-    "candidatures": { "items_schema": "candidature" }
+    "fiches": {
+      "items_schema": "fiche"
+    },
+    "references": {
+      "items_schema": "reference"
+    },
+    "calculs": {
+      "items_schema": "calcul"
+    },
+    "etapes_methode": {
+      "items_schema": "etape"
+    },
+    "pieces": {
+      "items_schema": "piece"
+    },
+    "scenarios": {
+      "items_schema": "scenario"
+    },
+    "trames": {
+      "items_schema": "trame"
+    },
+    "grilles_entretien": {
+      "items_schema": "grille"
+    },
+    "questions": {
+      "items_schema": "question"
+    },
+    "accidents": {
+      "items_schema": "accident"
+    },
+    "ressources": {
+      "items_schema": "ressource"
+    },
+    "cabinets": {
+      "items_schema": "cabinet"
+    },
+    "lexique_fr_en": {
+      "items_schema": "entree_lexique"
+    },
+    "a_verifier": {
+      "items_schema": "entree_a_verifier"
+    },
+    "star": {
+      "items_schema": "recit_star"
+    },
+    "candidatures": {
+      "items_schema": "candidature"
+    },
+    "modele_systemique": {
+      "items_schema": "element_systeme"
+    }
   }
 }

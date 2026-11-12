@@ -52,6 +52,7 @@
     questions: (id) => '#/entretien?q=' + id, accidents: () => '#/averifier',
     ressources: () => '#/ressources', cabinets: (id) => '#/cabinets?focus=' + id,
     lexique_fr_en: () => '#/lexique', a_verifier: () => '#/averifier',
+    modele_systemique: (id) => '#/systeme?focus=' + id,
   };
   Object.keys(ROUTES_TABLE).forEach((t) => {
     (DB[t].items || []).forEach((it) => {
@@ -94,6 +95,8 @@
         <p><a href="#/quiz">Cartes à répétition espacée</a> — <b>${dues}</b> carte(s) dues.</p>
         <p><a href="#/entretien">Entraînement entretien</a> : tirage chronométré, grilles par poste, banque STAR.</p>
         <p><a href="#/fiches">Fiches</a> · <a href="#/lexique">Lexique FR↔EN</a></p></div>
+      <div class="card"><h3>Comprendre le système</h3>
+        <p><a href="#/systeme">Modèle systémique du métier</a> : acteurs, flux, boucles, tensions, leviers — et la version orale de 3 minutes.</p></div>
       <div class="card"><h3>Travailler un sinistre</h3>
         <p><a href="#/methode">Méthode en 12 étapes</a> + 3 scénarios fictifs déroulables.</p>
         <p><a href="#/calculs">Calculateurs</a> : règles proportionnelles, chaîne d'indemnisation, PE, plafonds transport, délais.</p></div>
@@ -125,7 +128,7 @@
     if (q.length >= 2) {
       hits = CORPUS.filter((c) => c.text.includes(q)).slice(0, 80);
     }
-    const TABLE_LABEL = { fiches: 'fiche', references: 'référence', calculs: 'calculateur', etapes_methode: 'étape', pieces: 'pièce', scenarios: 'scénario', trames: 'trame', grilles_entretien: 'grille', questions: 'question', accidents: 'accident', ressources: 'ressource', cabinets: 'cible', lexique_fr_en: 'lexique', a_verifier: 'à vérifier' };
+    const TABLE_LABEL = { fiches: 'fiche', references: 'référence', calculs: 'calculateur', etapes_methode: 'étape', pieces: 'pièce', scenarios: 'scénario', trames: 'trame', grilles_entretien: 'grille', questions: 'question', accidents: 'accident', ressources: 'ressource', cabinets: 'cible', lexique_fr_en: 'lexique', a_verifier: 'à vérifier', modele_systemique: 'modèle' };
     return `<h1>Recherche</h1>
       <p class="muted">${q ? `${hits.length} résultat(s) pour « ${esc(q)} »` : 'Saisir au moins 2 caractères dans la barre du haut.'}</p>
       <ul class="clean searchhit">${hits.map((h2) => `<li><a href="${h2.route}">${esc(h2.titre)}</a>
@@ -536,6 +539,105 @@
       <ul class="clean">${DB.references.items.filter((r) => r.statut === 'NV').map((r) => `<li>${refLink(r.id)}</li>`).join('')}</ul>`;
   };
 
+  // ---------------------------------------------------------------- système
+  // Marques [S] sources / [C] connaissance à vérifier / [H] hypothèse → badges.
+  function marques(texte) {
+    return esc(texte).replace(/\[(S|C|H|NV|V)((?:, ?(?:NV|V|fictif|C|H|S))*)\]/g, (m, a, rest) => {
+      const cls = { S: 'V', C: 'NV', H: 'ordre_de_grandeur', NV: 'NV', V: 'V' }[a] || 'theme';
+      return `<span class="badge ${cls}" title="${{ S: 'tiré des sources', C: 'connaissance générale à vérifier', H: 'hypothèse de modélisation', NV: 'non vérifié', V: 'vérifié' }[a]}">${a}${esc(rest)}</span>`;
+    });
+  }
+  const MARQUE_LABEL = { S: 'S · sources', C: 'C · à vérifier', H: 'H · hypothèse', mixte: 'S / C / H' };
+  function marqueBadge(m) {
+    const cls = { S: 'V', C: 'NV', H: 'ordre_de_grandeur', mixte: 'theme' }[m];
+    return `<span class="badge ${cls}">${esc(MARQUE_LABEL[m] || m)}</span>`;
+  }
+  function svgDiagramme(id) {
+    const tpl = document.getElementById('tpl-' + id);
+    return tpl ? tpl.innerHTML : '<p class="muted">Diagramme absent du build.</p>';
+  }
+  const ORAL = { timer: null, restant: 180 };
+
+  VUES.systeme = function (params) {
+    const M = DB.modele_systemique.items;
+    const of = (t) => M.filter((i) => i.type === t);
+    const one = (id) => M.find((i) => i.id === id);
+    const focus = params.get('focus');
+    if (focus) setTimeout(() => { const el = document.getElementById(focus); if (el) el.scrollIntoView({ block: 'start' }); }, 30);
+    const sections = [['sys-synthese', 'Synthèse'], ['sys-frontiere', 'Frontière'], ['sys-acteurs', 'Acteurs'], ['sys-flux', 'Flux'],
+      ['sys-stocks', 'Stocks et délais'], ['sys-boucles', 'Boucles'], ['sys-diag-boucles', 'Diagramme causal'], ['sys-cycle', 'Cycle de vie'],
+      ['sys-tensions', 'Tensions'], ['sys-perturbations', 'Perturbations'], ['sys-leviers', 'Leviers'], ['sys-cas', 'Cas test'],
+      ['sys-limites', 'Limites'], ['sys-oral', 'Version orale']];
+    const syn = one('ms-synthese'); const fr = one('ms-frontiere'); const oral = one('ms-oral');
+    const cas = one('ms-cas-test'); const lim = one('ms-limites'); const qs = one('ms-questions');
+    const dB = one('ms-diag-boucles'); const dC = one('ms-diag-cycle');
+    const pol = { R: '<span class="badge fictif">R · renforçante</span>', B: '<span class="badge V">B · équilibrante</span>' };
+    return `<div class="toolbar no-print"><button onclick="window.print()">Imprimer (A4)</button></div>
+      <h1>Modèle systémique du métier d'expert</h1>
+      <p class="muted">Expertise IARD, risques d'entreprise et transport (France). Marques : ${marqueBadge('S')} tiré des sources · ${marqueBadge('C')} connaissance générale à vérifier · ${marqueBadge('H')} hypothèse de modélisation.</p>
+      <nav class="filters no-print">${sections.map(([id, l]) => `<a class="chip" href="#/systeme?focus=${id}">${l}</a>`).join('')}</nav>
+
+      <div class="card" id="sys-synthese"><h2>${esc(syn.titre)}</h2>${syn.contenu.map((p) => `<p>${marques(p)}</p>`).join('')}</div>
+
+      <div class="card" id="sys-frontiere"><h2>${esc(fr.titre)} ${marqueBadge(fr.marque)}</h2>
+        <h3>Dedans</h3><ul>${fr.dedans.map((p) => `<li>${marques(p)}</li>`).join('')}</ul>
+        <h3>En bordure</h3><ul>${fr.bordure.map((p) => `<li>${marques(p)}</li>`).join('')}</ul>
+        <h3>Dehors</h3><ul>${fr.dehors.map((p) => `<li>${marques(p)}</li>`).join('')}</ul>
+        <p><b>Pourquoi :</b> ${marques(fr.pourquoi)}</p></div>
+
+      <div class="card" id="sys-acteurs"><h2>Acteurs</h2>
+        <div class="tablewrap"><table class="flat acteurs"><tr><th>Acteur</th><th>Objectif réel</th><th>Crainte</th><th>Indicateur</th><th>Lien avec l'expert</th></tr>
+        ${of('acteur').map((a) => `<tr><td><b>${esc(a.titre)}</b><br>${marqueBadge(a.marque)}</td><td>${marques(a.objectif)}</td><td>${marques(a.crainte)}</td><td>${marques(a.indicateur)}</td><td>${marques(a.lien_expert)}</td></tr>`).join('')}
+        </table></div></div>
+
+      <div class="card" id="sys-flux"><h2>Flux, en quatre couches</h2>
+        ${of('flux').map((f) => `<h3>${esc(f.titre)}</h3><ul>${f.contenu.map((p) => `<li>${marques(p)}</li>`).join('')}</ul>`).join('')}</div>
+
+      <div class="card" id="sys-stocks"><h2>${esc(one('ms-stocks').titre)}</h2>
+        <ul>${one('ms-stocks').contenu.map((p) => `<li>${marques(p)}</li>`).join('')}</ul></div>
+
+      <div class="card" id="sys-boucles"><h2>Boucles de rétroaction</h2>
+        ${of('boucle').map((b) => `<div class="boucle"><h3>${esc(b.titre)} ${pol[b.polarite]} ${marqueBadge(b.marque)}</h3>
+          <p class="formule">${esc(b.chaine)}</p><p>${marques(b.lecture)}</p><p><b>Exemple :</b> ${marques(b.exemple)}</p></div>`).join('')}</div>
+
+      <div class="card" id="sys-diag-boucles"><h2>${esc(dB.titre)} ${marqueBadge(dB.marque)}</h2>
+        <p class="muted">${esc(dB.legende)}</p>
+        <div class="diagramme">${svgDiagramme(dB.id)}</div>
+        <p class="muted no-print">Faire défiler horizontalement sur téléphone. ${esc(dB.note || '')}</p>
+        <details class="no-print"><summary>Source Mermaid</summary><pre class="formule">${esc(dB.mermaid)}</pre></details></div>
+
+      <div class="card" id="sys-cycle"><h2>Cycle de vie du sinistre</h2>
+        <div class="tablewrap"><table class="flat"><tr><th>#</th><th>Étape</th><th>Acteur moteur</th><th>Livrable</th><th>Point de rupture typique</th></tr>
+        ${of('etape_cycle').sort((a, b) => a.ordre - b.ordre).map((e) => `<tr><td>${e.ordre}</td><td><b>${esc(e.titre)}</b></td><td>${esc(e.moteur)}</td><td>${esc(e.livrable)}</td><td>${marques(e.rupture)}</td></tr>`).join('')}
+        </table></div>
+        <h3>${esc(dC.titre)}</h3><p class="muted">${esc(dC.legende)}</p>
+        <div class="diagramme">${svgDiagramme(dC.id)}</div>
+        <details class="no-print"><summary>Source Mermaid</summary><pre class="formule">${esc(dC.mermaid)}</pre></details></div>
+
+      <div class="card" id="sys-tensions"><h2>Tensions structurelles</h2>
+        <ul>${of('tension').map((t) => `<li><b>${esc(t.titre)}</b> ${marqueBadge(t.marque)} — ${marques(t.contenu)}<br><small>Exemple : ${marques(t.exemple)}</small></li>`).join('')}</ul></div>
+
+      <div class="card" id="sys-perturbations"><h2>Perturbations externes</h2>
+        <ul>${of('perturbation').map((p) => `<li><b>${esc(p.titre)}</b> — ${marques(p.contenu)}<br><small>Boucles touchées : ${(p.boucles || []).map((b) => esc(one(b).titre.split(' — ')[0])).join(', ')}</small></li>`).join('')}</ul></div>
+
+      <div class="card" id="sys-leviers"><h2>Points de levier d'un expert junior</h2>
+        <h3>Où il crée le plus de valeur</h3>
+        <ul>${of('levier').filter((l) => l.sens === 'valeur').map((l) => `<li><b>${esc(l.titre)}</b> — ${marques(l.contenu)}<br><small>Exemple : ${marques(l.exemple)}</small></li>`).join('')}</ul>
+        <h3>Où il peut faire échouer un dossier</h3>
+        <ul>${of('levier').filter((l) => l.sens === 'echec').map((l) => `<li><b>${esc(l.titre)}</b> — ${marques(l.contenu)}<br><small>Exemple : ${marques(l.exemple)}</small></li>`).join('')}</ul></div>
+
+      <div class="card" id="sys-cas"><div class="bandeau-fictif">CAS FICTIF — test du modèle</div><h2>${esc(cas.titre)}</h2>
+        <ol>${cas.contenu.map((p) => `<li>${marques(p)}</li>`).join('')}</ol></div>
+
+      <div class="card" id="sys-limites"><h2>${esc(lim.titre)}</h2><ul>${lim.contenu.map((p) => `<li>${marques(p)}</li>`).join('')}</ul>
+        <h3>${esc(qs.titre)}</h3><ul>${qs.contenu.map((p) => `<li>${esc(p)}</li>`).join('')}</ul></div>
+
+      <div class="card" id="sys-oral"><h2>${esc(oral.titre)}</h2>
+        <div class="toolbar no-print"><button class="primary" id="btn-oral">Chrono 3:00</button><span class="timer" id="chrono-oral" style="font-size:1.6rem">3:00</span></div>
+        ${oral.contenu.map((p) => `<p>${esc(p)}</p>`).join('')}
+        <p class="muted">${esc(oral.note || '')}</p></div>`;
+  };
+
   // -------------------------------------------------------------- ressources
   VUES.ressources = function () {
     const types = [...new Set(DB.ressources.items.map((r) => r.type))];
@@ -560,7 +662,7 @@
   // ---------------------------------------------------------------- routage
   const NAV = [
     ['#/accueil', 'Accueil'], ['#/fiches', 'Fiches'], ['#/references', 'Références'],
-    ['#/calculs', 'Calculs'], ['#/methode', 'Méthode'], ['#/entretien', 'Entretien'],
+    ['#/systeme', 'Système'], ['#/calculs', 'Calculs'], ['#/methode', 'Méthode'], ['#/entretien', 'Entretien'],
     ['#/quiz', 'Quiz'], ['#/lexique', 'Lexique'], ['#/trames', 'Trames'],
     ['#/cabinets', 'Cibles'], ['#/candidatures', 'Candidatures'],
     ['#/ressources', 'Ressources'], ['#/averifier', 'À vérifier'], ['#/donnees', 'Mes données'],
@@ -589,6 +691,20 @@
     });
     const r1 = $('#btn-reset-methode'); if (r1) r1.onclick = () => { if (confirm('Décocher les 12 étapes ?')) { P.methode = {}; save(); route(); } };
     const t1 = $('#btn-tirage'); if (t1) t1.onclick = () => startTirage(t1.dataset.grille);
+    const bo = $('#btn-oral'); if (bo) {
+      bo.onclick = () => {
+        clearInterval(ORAL.timer); ORAL.restant = 180;
+        const el = $('#chrono-oral');
+        ORAL.timer = setInterval(() => {
+          ORAL.restant--;
+          const e2 = $('#chrono-oral');
+          if (!e2) { clearInterval(ORAL.timer); return; }
+          e2.textContent = fmtChrono(ORAL.restant);
+          e2.className = 'timer' + (ORAL.restant <= 0 ? ' over' : (ORAL.restant <= 20 ? ' warn' : ''));
+        }, 1000);
+        el.textContent = '3:00';
+      };
+    }
     const sa = $('#btn-star-add'); if (sa) {
       sa.onclick = () => {
         const titre = prompt('Titre du récit :'); if (!titre) return;
