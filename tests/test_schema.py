@@ -19,11 +19,16 @@ def test_scenarios_fictifs_marques():
         assert s["marque"] == "FICTIF"
 
 
-def test_accidents_vides_sans_source():
-    """Aucun numéro ARIA inventé : la table reste vide tant que le
-    rapport_recherche.md n'est pas fourni."""
+def test_accidents_tracables():
+    """Aucun numéro ARIA/BEA-TT inventé : tout accident vérifié porte son
+    numéro de base et l'URL de sa fiche ; les pistes non vérifiées restent NV."""
     data, _ = build.load_all()
-    assert data["accidents"]["items"] == []
+    items = data["accidents"]["items"]
+    assert items, "table accidents vide"
+    for a in items:
+        if a["statut"] == "V":
+            assert a["numero_base"] and a["numero_base"] != "—", a["id"]
+            assert a["source_url"], a["id"]
 
 
 def test_anonymisation_depot():
